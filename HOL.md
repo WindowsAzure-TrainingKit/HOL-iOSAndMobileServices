@@ -21,7 +21,7 @@ In this hands-on lab, you will learn how to:
 Completing this tutorial requires:
 
 * [XCode 4.5](https://go.microsoft.com/fwLink/p/?LinkID=266532)
-* iOS 5.0 or later versions.
+* An iOS 5.0 (or later version) capable device
 * Windows Azure account that has the Windows Azure Mobile Services feature enabled. [Windows Azure Free Trial](http://www.windowsazure.com/en-us/pricing/free-trial/?WT.mc_id=AE564AB28&returnurl=http%3A%2F%2Fwww.windowsazure.com%2Fen-us%2Fdevelop%2Fmobile%2Ftutorials%2Fget-started-ios%2F).
 * iOS Developer Program membership
 
@@ -219,6 +219,8 @@ In this step we will explore To do list application code and see how simple the 
 
 	_Add item and Complete item methods_
 
+	>**Note:** To add additional columns to the table, simply send an insert request including the new properties from your app with dynamic schema enabled. Once a column is created, its data type cannot be changed by Mobile Services. Insert or update operations fail when the type of a property in the JSON object cannot be converted to the type of the equivalent column in the table.
+
 
 ---
 <a name="Exercise2"></a>
@@ -276,7 +278,7 @@ Now that the mobile service is validating data and sending error responses, you 
 	````objective-c
 	[self logErrorIfNotNil:error];
 	````
-After this line of code, replace the remainder of the completion block with the following code:
+After this line of code, replace the remainder of the block with the following code:
 
 	````objective-c
 	BOOL goodRequest = !((error) && (error.code == MSErrorMessageErrorCode));
@@ -292,7 +294,7 @@ After this line of code, replace the remainder of the completion block with the 
 	else{
 		// if there's an error that came from the service
 		// log it, and popup up the returned string.
-		if (error &amp;&amp; error.code == MSErrorMessageErrorCode) {
+		if (error && error.code == MSErrorMessageErrorCode) {
 			 NSLog(@"ERROR %@", error);
 			 UIAlertView *av =
 			 [[UIAlertView alloc]
@@ -336,7 +338,7 @@ First you must generate the Certificate Signing Request (CSR) file, which is use
 
 	_Request Certificate from Certificate authority_
 
-1.	Select your **User Email Address**, type **Common Name** and **CA Email Address** values, make sure that**Saved to disk** is selected, and then click **Continue**.
+1.	Select your **User Email Address**, type **Common Name** and **CA Email Address** values, make sure that **Saved to disk** is selected, and then click **Continue**.
 
 	![Certificcate assistant](images/certificcate-assistant.png?raw=true "Certificcate assistant")
 
@@ -346,7 +348,7 @@ First you must generate the Certificate Signing Request (CSR) file, which is use
 
 	![Save window](images/save-window.png?raw=true "Save window")
 
-	_Save window_
+	_Save Certificate Window_
 
 This saves the CSR file in the selected location; the default location is in the Desktop. Remember the location chosen for this file.
 
@@ -354,7 +356,9 @@ This saves the CSR file in the selected location; the default location is in the
 
 To be able to send push notifications to an iOS app from mobile services, you must register your application with Apple and also register for push notifications.
 
-1.	If you have not already registered your app, navigate to the iOS Provisioning Portal <http://go.microsoft.com/fwlink/p/?linkid=272456&clcid=0x409> at the Apple Developer Center, log on with your Apple ID, click **App IDs**, then click **New App ID**.
+1.	If you have not already registered your app, navigate to the [iOS Provisioning Portal ](http://go.microsoft.com/fwlink/p/?linkid=272456&clcid=0x409) at the Apple Developer Center, log on with your Apple ID.
+
+1. Click **App IDs**, then click **New App ID**.
 
 	![App IDs](images/app-ids.png?raw=true "App IDs")
 
@@ -493,21 +497,92 @@ Make a note of the file name and location of the exported certificate.
 
 1.	In Xcode, open the QSAppDelegate.h file and add the following property below the ***window** property:
 
+
+	````objective-c
+	@property (strong, nonatomic) NSString *deviceToken;
+	````
+
 	>**NOTE**: When dynamic schema is enabled on your mobile service, a new 'deviceToken' column is automatically added to the TodoItem table when a new item that contains this property is inserted.
 
 1.	In QSAppDelegate.m, replace the following handler method inside the implementation:
 
-1.	In QSAppDelegate.m, add the following handler method inside the implementation:
+	````objective-c
+	-(BOOL)application:(UIApplication *)application 
+	didFinishLaunchingWithOptions:
+	(NSDictionary *)launchOptions
+	{
+		 // Register for remote notifications
+		 [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+		 UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+		 return YES;
+	}
+	````
 
 1.	In QSAppDelegate.m, add the following handler method inside the implementation:
 
+	````objective-c
+	// We are registered, so now store the device token (as a string) on the AppDelegate instance
+	// taking care to remove the angle brackets first.
+	-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:
+	(NSData *)deviceToken {
+		 NSCharacterSet *angleBrackets = [NSCharacterSet characterSetWithCharactersInString:@"<>"];
+		 self.deviceToken = [[deviceToken description] stringByTrimmingCharactersInSet:angleBrackets];
+	}
+	````
+
 1.	In QSAppDelegate.m, add the following handler method inside the implementation:
+
+	````objective-c
+	// Handle any failure to register. In this case we set the deviceToken to an empty
+	// string to prevent the insert from failing.
+	-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:
+	(NSError *)error {
+		 NSLog(@"Failed to register for remote notifications: %@", error);
+		 self.deviceToken = @"";
+	}
+	````
+
+1.	In QSAppDelegate.m, add the following handler method inside the implementation:
+
+	````objective-c
+	// Because toast alerts don't work when the app is running, the app handles them.
+	// This uses the userInfo in the payload to display a UIAlertView.
+	-(void)application:(UIApplication *)application didReceiveRemoteNotification:
+	(NSDictionary *)userInfo {
+		 NSLog(@"%@", userInfo);
+		 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:
+		 [userInfo objectForKey:@"inAppMessage"] delegate:nil cancelButtonTitle:
+		 @"OK" otherButtonTitles:nil, nil];
+		 [alert show];
+	}
+	````
 
 1.	In QSTodoListViewController.m, import the QSAppDelegate.h file so that you can use the delegate to obtain the device token:
 
+	````objective-c
+	#import "QSAppDelegate.h"
+	````
+
 1.	In QSTodoListViewController.m, modify the **(IBAction)onAdd** action by locating the following line:
 
+	````objective-c
+	NSDictionary *item = @{ @"text" : itemText.text, @"complete" : @(NO) };
+	````
+
 	Replace this with the following code:
+
+	````objective-c
+	// Get a reference to the AppDelegate to easily retrieve the deviceToken
+	QSAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+
+
+	NSDictionary *item = @{
+		 @"text" : itemText.text,
+		 @"complete" : @(NO),
+		 // add the device token property to our todo item payload
+		 @"deviceToken" : delegate.deviceToken
+	};
+	````
 
 	This adds a reference to the **QSAppDelegate** to obtain the device token and then modifies the request payload to include that device token.
 
@@ -517,13 +592,38 @@ Make a note of the file name and location of the exported certificate.
 
 ###Task 6: Update the registered insert script in the Management Portal###
 
-1.	In the Management Portal, click the **Data** tab and then click the **TodoItem** table.
+1.	In the Windows Azure Management Portal, click the **Data** tab and then click the **TodoItem** table.
+
+
+	![Todolist data](./images/todolist-data.png?raw=true "Todolist data")
+ 
+	_Todolist data items_	
 
 1.	In **todoitem**, click the **Script** tab and select **Insert**.
+
+	![Insert operation in script tab](images/insert-operation-in-script-tab2.png?raw=true "Insert operation in script tab")
+
+	_Insert operation in script tab_
 
 	This displays the function that is invoked when an insert occurs in the **TodoItem** table.
 
 1.	Replace the insert function with the following code, and then click **Save**:
+
+	````objective-c
+	function insert(item, user, request) {
+		 request.execute();
+		 // Set timeout to delay the notification, to provide time for the 
+		 // app to be closed on the device to demonstrate toast notifications
+		 setTimeout(function() {
+			  push.apns.send(item.deviceToken, {
+					alert: "Toast: " + item.text,
+					payload: {
+						 inAppMessage: "Hey, a new item arrived: '" + item.text + "'"
+					}
+			  });
+		 }, 2500);
+	}
+	````
 
 	This registers a new insert script, which uses the apns object <http://go.microsoft.com/fwlink/p/?linkid=272333&clcid=0x409> to send a push notification (the inserted text) to the device provided in the insert request.
 
@@ -534,13 +634,29 @@ Make a note of the file name and location of the exported certificate.
 
 1.	Press the **Run** button to build the project and start the app in an iOS capable device, then click **OK** to accept push notifications
 
+	![Prompt to send push notification](images/prompt-to-send-push-notification.png?raw=true "Prompt to send push notification")
+
+	_Prompt to send push notification_
+
 	>**NOTE**: You must explicitly accept push notifications from your app. This request only occurs the first time that the app runs.
 
 1.	In the app, type meaningful text, such as _A new Mobile Services task_ and then click the plus (**+**) icon.
 
+	![New task](images/new-task.png?raw=true "New task")
+
+	_New task_
+
 1.	Verify that a notification is received, then click **OK** to dismiss the notification.
 
+	![Notification received](images/notification-received.png?raw=true "Notification received")
+
+	_Notification received_
+
 1.	Repeat step 2 and immediately close the app, then verify that the following toast is shown.
+
+	![Notification Received](images/notification-recieved2.png?raw=true "Notification Received")
+
+	_Notification Received_
 
 ---
 <a name="Exercise4"></a>
@@ -609,7 +725,7 @@ Next, you will update the app to authenticate users before requesting resources 
 1. Just after the **viewDidLoad** method, add the following code:
 
 	````objective-c
-	(void)viewDidAppear:(BOOL)animated
+	-(void)viewDidAppear:(BOOL)animated
 	{
 		 MSClient *client = self.todoService.client;
 
@@ -626,8 +742,13 @@ Next, you will update the app to authenticate users before requesting resources 
 
 	>**NOTE:** If you are using an identity provider other than Facebook, change the value passed tologinWithProvider above to one of the following:microsoftaccount,facebook,twitter, orgoogle.
 
-1.	Press the **Run** button to build the project, start the app in the iPhone emulator, then log-on with your chosen identity provider.
-When you are successfully logged-in, the app should run without errors, and you should be able to query Mobile Services and make updates to data.
+1.	Press the **Run** button to build the project, start the app in the iPhone emulator
+
+	![Facebook authentication](images/facebook-authentication.png?raw=true "Facebook authentication")
+
+	_Facebook authentication_
+
+1. Log-on with Facebook (or your chosen identity provider) and accept Facebook to use your public profile. When you are successfully logged-in, the app should run without errors, and you should be able to query Mobile Services and make updates to data.
 
 
 

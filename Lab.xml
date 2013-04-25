@@ -2,21 +2,22 @@
 <Lab xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/ContentFramework.Core.Models">
   <Id>iOSandMobileServices</Id>
   <Technologies>
-    <Technology>Windows Azure</Technology>
+    <Technology>Windows Azure Mobile Services</Technology>
   </Technologies>
   <Author>
     <Blog></Blog>
     <Email></Email>
-    <Name>mwasham</Name>
+    <Name></Name>
   </Author>
-  <Description>Windows Azure Mobile Services is a Windows Azure service offering designed to make it easy to create highly-functional mobile apps using Windows Azure. Mobile Services brings together a set of Windows Azure services that enable backend capabilities for your apps. These capabilities includes simple provisioning and management of tables for storing app data, integration with notification services, integration with well-known identity providers for authentication, among others.</Description>
+  <Description>In this hands-on lab you will learn how to add a cloud-based backend service to an iOS app using Windows Azure Mobile Services. You will create both a new mobile service and a simple TodoList app that stores app data in the new mobile service.
+</Description>
   <Document ConversionType="Html">.\HOL.md</Document>
   <Title>Get started with Windows Azure Mobile Services and iOS</Title>
   <Version>1.0.0</Version>
   <Source></Source>
   <DependencyChecker></DependencyChecker>
   <CustomProperties>
-    <Property Name="ContentType" Value="Scenario" />
+    <Property Name="ContentType" Value="VS2012" />
     <Property Name="GitHubRepository" Value="https://github.com/WindowsAzure-TrainingKit/HOL-iOSAndMobileServices" />
   </CustomProperties>
 </Lab>
