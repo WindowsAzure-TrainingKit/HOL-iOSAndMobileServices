@@ -120,13 +120,13 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 1. Browse to the location where you saved the compressed project files, expand the files on your computer, and open the project file using XCode.
 
-	![Project with XCode](./images/project-file-with-xcode.png?raw=true "Project with XCode")
+	![Project with XCode](./Images/project-file-with-xcode.png?raw=true "Project with XCode")
 
 	_Todolist XCode solution_
 
 1. Make sure the Iphone Simulator is selected and press the **Run** button to build the project and start the app.
 
-	![Run the application](./images/first-run.png?raw=true "Run the application")
+	![Run the application](./Images/first-run.png?raw=true "Run the application")
 
 	_Run the application_
 
@@ -136,7 +136,7 @@ In this section you will create a new iOS app that is connected to your mobile s
 	* _Create the Mobile Service_
 	* _Complete the Hands-On Lab_
 
-	![IPhone App](./images/iphone-todo-app.png?raw=true "IPhone App")
+	![IPhone App](./Images/iphone-todo-app.png?raw=true "IPhone App")
  
 	_Todolist app running in IPhone Simulator_
 
@@ -146,7 +146,7 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 1. Back in the Windows Azure Management Portal, click the **Data** tab and then click the **TodoItems** table.
 
-	![Todolist data](./images/todolist-data.png?raw=true "Todolist data")
+	![Todolist data](./Images/todolist-data.png?raw=true "Todolist data")
  
 	_Todolist data items_
 
@@ -243,7 +243,7 @@ It is always a good practice to validate the length of data that is submitted by
 
 1. Click **Script**, then select the **Insert** operation
 
-	![Insert operation in script tab](images/insert-operation-in-script-tab.png?raw=true "Insert operation in script tab")
+	![Insert operation in script tab](Images/insert-operation-in-script-tab.png?raw=true "Insert operation in script tab")
 
 	_Insert operation in script tab_
 
@@ -316,7 +316,7 @@ After this line of code, replace the remainder of the block with the following c
 
 1. Enter a text with more than 10 characters (e.g. _A user-specific task_.).
 
-	![Validation Error](images/validation-error.png?raw=true "Validation Error")
+	![Validation Error](Images/validation-error.png?raw=true "Validation Error")
 
 	_Validation Error_
 
@@ -334,19 +334,19 @@ First you must generate the Certificate Signing Request (CSR) file, which is use
 
 1.	Click **Keychain Access**, expand **Certificate Assistant**, then click **Request a Certificate from a Certificate Authority...**.
 
-	![Request Certificate authority](images/request-certificate-authority.png?raw=true "Request Certificate authority")
+	![Request Certificate authority](Images/request-certificate-authority.png?raw=true "Request Certificate authority")
 
 	_Request Certificate from Certificate authority_
 
 1.	Select your **User Email Address**, type **Common Name** and **CA Email Address** values, make sure that **Saved to disk** is selected, and then click **Continue**.
 
-	![Certificcate assistant](images/certificcate-assistant.png?raw=true "Certificcate assistant")
+	![Certificcate assistant](Images/certificcate-assistant.png?raw=true "Certificcate assistant")
 
 	_Certificcate assistant_
 
 1.	Type a name for the Certificate Signing Request (CSR) file in **Save As**, select the location in **Where**, then click **Save**.
 
-	![Save window](images/save-window.png?raw=true "Save window")
+	![Save window](Images/save-window.png?raw=true "Save window")
 
 	_Save Certificate Window_
 
@@ -360,14 +360,14 @@ To be able to send push notifications to an iOS app from mobile services, you mu
 
 1. Click **App IDs**, then click **New App ID**.
 
-	![App IDs](images/app-ids.png?raw=true "App IDs")
+	![App IDs](Images/app-ids.png?raw=true "App IDs")
 
 	_App IDs_
 
 1.	Type a name for your app in **Description**, enter the value _MobileServices.Quickstart_ in **Bundle Identifier**, then click **Submit**.
 This generates your app ID.
 
-	![Create App Id](images/create-app-id.png?raw=true "Create App Id")
+	![Create App Id](Images/create-app-id.png?raw=true "Create App Id")
 
 	_Create App Id_
 
@@ -375,14 +375,14 @@ This generates your app ID.
 
 1.	Locate the app ID that you just created, then click **Configure**.
 
-	![Configuration](images/configuration.png?raw=true "Configuration")
+	![Configuration](Images/configuration.png?raw=true "Configuration")
 
 	_Configuration_
 
 1.	Check the **Enable for Apple Push Notification service** check box, then click the **Continue** button for the **Development Push SSL Certificate**.
 This displays the Apple Push Notification service SSL Certificate Assistant.
 
-	![Mobile Service Quickstart](images/mobile-service-quickstart.png?raw=true "Mobile Service Quickstart")
+	![Mobile Service Quickstart](Images/mobile-service-quickstart.png?raw=true "Mobile Service Quickstart")
 
 	_Mobile Service Quickstart_
 
@@ -390,7 +390,7 @@ This displays the Apple Push Notification service SSL Certificate Assistant.
 
 1.	Click **Browse**, browse to the location where you saved the CSR file that you created in the first task, then click **Generate**.
 
-	![Submit certificate request](images/submit-certificate-request.png?raw=true "Submit certificate request")
+	![Submit certificate request](Images/submit-certificate-request.png?raw=true "Submit certificate request")
 
 	_Submit certificate request_
 
@@ -398,7 +398,7 @@ This displays the Apple Push Notification service SSL Certificate Assistant.
 
 	This downloads the signing certificate and saves it to your computer in your Downloads folder.
 
-	![Cer file](images/cer-file.png?raw=true "Cer file")
+	![Cer file](Images/cer-file.png?raw=true "Cer file")
 
 	_Cer file_
 
@@ -407,7 +407,7 @@ This displays the Apple Push Notification service SSL Certificate Assistant.
 1.	Double-click the downloaded push certificate **aps_development.cer**.
 This installs the new certificate in the Keychain, as shown below:
 
-	![Certificate](images/certificate.png?raw=true "Certificate")
+	![Certificate](Images/certificate.png?raw=true "Certificate")
 
 	_Certificate_
 
@@ -419,14 +419,14 @@ Later, you will use this certificate to generate a .p12 file and upload it to Mo
 
 1.	Back in the [iOS Provisioning Portal]( http://go.microsoft.com/fwlink/p/?linkid=272456&clcid=0x409), select **Provisioning**, then click **New Profile**.
 
-	![New Profile](images/new-profile.png?raw=true "New Profile")
+	![New Profile](Images/new-profile.png?raw=true "New Profile")
 
 	_New Profile_
 
 1.	Enter a **Profile Name**, select the **Certificates** and **Devices** to use for testing, select the **App ID**, then click **Submit**.
 This creates a new provisioning profile.
 
-	![Create iOS development provisioning profile](images/create-ios-development-provisioning-profile.png?raw=true "Create iOS development provisioning profile")
+	![Create iOS development provisioning profile](Images/create-ios-development-provisioning-profile.png?raw=true "Create iOS development provisioning profile")
 
 	_Create iOS development provisioning profile_
 
@@ -434,7 +434,7 @@ This creates a new provisioning profile.
 
 	This downloads the profile to the local computer.
 
-	![Download button](images/download-button.png?raw=true "Download button")
+	![Download button](Images/download-button.png?raw=true "Download button")
 
 	_Download button_
 
@@ -442,19 +442,19 @@ This creates a new provisioning profile.
 
 1.	In Xcode, open the Organizer select the Devices view, select **Provisioning Profiles** in the **Library** section in the left pane, and then click the **Import** button at the very bottom of the middle pane.
 
-	![Import](images/import.png?raw=true "Import")
+	![Import](Images/import.png?raw=true "Import")
 
 	_Import button_
 
 1.	Locate the downloaded provisioning profile and click **Open**.
 
-	![Open profile](images/open-profile.png?raw=true "Open profile")
+	![Open profile](Images/open-profile.png?raw=true "Open profile")
 
 	_Open profile_
 
 1.	Under **Targets**, click **Quickstart**, expand **Code Signing Identity**, then under **Debug** select the new profile.
 
-	![Debug the selected profile](images/debug-the-selected-profile.png?raw=true "Debug the selected profile")
+	![Debug the selected profile](Images/debug-the-selected-profile.png?raw=true "Debug the selected profile")
 
 	_Debug the selected profile_
 
@@ -467,7 +467,7 @@ After you have registered your app with APNS and configured your project, you mu
 1.	In Keychain Access, right-click the new certificate, click **Export**, name your file QuickstartPusher, select the**.p12** format, then click **Save**.
 Make a note of the file name and location of the exported certificate.
 
-	![Save p12](images/save-p12.png?raw=true "Save p12")
+	![Save p12](Images/save-p12.png?raw=true "Save p12")
 
 	_Save p12_
 
@@ -477,7 +477,7 @@ Make a note of the file name and location of the exported certificate.
 
 1.	Click the **Push** tab and click **Upload**.
 
-	![Upload certificate](images/upload-certificate.png?raw=true "Upload certificate")
+	![Upload certificate](Images/upload-certificate.png?raw=true "Upload certificate")
 
 	_Upload certificate_
 
@@ -485,7 +485,7 @@ Make a note of the file name and location of the exported certificate.
 
 1.	Click **File**, select the exported certificate QuickstartPusher.p12 file, enter the **Password**, make sure that the correct **Mode** is selected, click the check icon, then click **Save**.
 
-	![Upload certificate dialog](images/upload-certificate-dialog.png?raw=true "Upload certificate dialog")
+	![Upload certificate dialog](Images/upload-certificate-dialog.png?raw=true "Upload certificate dialog")
 
 	_Upload certificate dialog_
 
@@ -595,13 +595,13 @@ Make a note of the file name and location of the exported certificate.
 1.	In the Windows Azure Management Portal, click the **Data** tab and then click the **TodoItem** table.
 
 
-	![Todolist data](./images/todolist-data.png?raw=true "Todolist data")
+	![Todolist data](./Images/todolist-data.png?raw=true "Todolist data")
  
 	_Todolist data items_	
 
 1.	In **todoitem**, click the **Script** tab and select **Insert**.
 
-	![Insert operation in script tab](images/insert-operation-in-script-tab2.png?raw=true "Insert operation in script tab")
+	![Insert operation in script tab](Images/insert-operation-in-script-tab2.png?raw=true "Insert operation in script tab")
 
 	_Insert operation in script tab_
 
@@ -634,7 +634,7 @@ Make a note of the file name and location of the exported certificate.
 
 1.	Press the **Run** button to build the project and start the app in an iOS capable device, then click **OK** to accept push notifications
 
-	![Prompt to send push notification](images/prompt-to-send-push-notification.png?raw=true "Prompt to send push notification")
+	![Prompt to send push notification](Images/prompt-to-send-push-notification.png?raw=true "Prompt to send push notification")
 
 	_Prompt to send push notification_
 
@@ -642,19 +642,19 @@ Make a note of the file name and location of the exported certificate.
 
 1.	In the app, type meaningful text, such as _A new Mobile Services task_ and then click the plus (**+**) icon.
 
-	![New task](images/new-task.png?raw=true "New task")
+	![New task](Images/new-task.png?raw=true "New task")
 
 	_New task_
 
 1.	Verify that a notification is received, then click **OK** to dismiss the notification.
 
-	![Notification received](images/notification-received.png?raw=true "Notification received")
+	![Notification received](Images/notification-received.png?raw=true "Notification received")
 
 	_Notification received_
 
 1.	Repeat step 2 and immediately close the app, then verify that the following toast is shown.
 
-	![Notification Received](images/notification-recieved2.png?raw=true "Notification Received")
+	![Notification Received](Images/notification-recieved2.png?raw=true "Notification Received")
 
 	_Notification Received_
 
@@ -686,7 +686,7 @@ To be able to authenticate users, you must register your iOS app at the Facebook
 
 1. Click the **Identity** tab, enter the **App ID** and the **App Secret** obtained in the Facebook developer center, and click **Save**.
 
-	![Todolist Identity tab](images/todolist-identity-tab.png?raw=true "Todolist Identity tab")
+	![Todolist Identity tab](Images/todolist-identity-tab.png?raw=true "Todolist Identity tab")
 
 	_Todolist Identity tab_
 
@@ -744,7 +744,7 @@ Next, you will update the app to authenticate users before requesting resources 
 
 1.	Press the **Run** button to build the project, start the app in the iPhone emulator
 
-	![Facebook authentication](images/facebook-authentication.png?raw=true "Facebook authentication")
+	![Facebook authentication](Images/facebook-authentication.png?raw=true "Facebook authentication")
 
 	_Facebook authentication_
 
