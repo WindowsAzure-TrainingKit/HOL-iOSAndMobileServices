@@ -6,7 +6,9 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Windows Azure Mobile Services is a Windows Azure service offering designed to make it easy to create highly-functional mobile apps using Windows Azure. Mobile Services brings together a set of Windows Azure services that enable backend capabilities for your apps. These capabilities includes simple provisioning and management of tables for storing app data, integration with notification services, integration with well-known identity providers for authentication, among others. In this lab, you will create a new mobile service and a simple _To do list_ app that stores app data in the new mobile service.
+Windows Azure Mobile Services is a Windows Azure service offering designed to make it easy to create highly-functional mobile apps using Windows Azure. Mobile Services brings together a set of Windows Azure services that enable backend capabilities for your apps. These capabilities includes simple provisioning and management of tables for storing app data, integration with notification services, integration with well-known identity providers for authentication, among others. 
+
+In this hands-on lab you will learn how to add a cloud-based backend service to an iOS app using Windows Azure Mobile Services. You will create both a new mobile service and a simple TodoList app that stores app data in the new mobile service.
 
 <a name="Objectives"></a>
 ### Objectives ###
@@ -34,19 +36,19 @@ Completing this tutorial requires:
 This hands-on lab includes the following exercises:
 
 1. [Building your first Windows Azure Application](#Exercise1)
-1. [Validate and Modify Data Using Server Scripts](#Exercise2)
-1. [Get Started with Push Notifications](#Exercise3)
-1. [Get Started with Auth](#Exercise4)
+1. [Validating Data Using Server Scripts](#Exercise2)
+1. [Getting Started with Push Notifications](#Exercise3)
+1. [Getting Started with Auth](#Exercise4)
 
 
 Estimated time to complete this lab: **30 minutes**.
 
 <a name="Exercise1"></a>
-### Exercise 1: Building your first Windows Azure App ###
+## Exercise 1: Building your first Windows Azure App ##
 
-This exersice shows you how to add a cloud-based backend service to an iOS app using Windows Azure Mobile Services.
+This exercise shows you how to add a cloud-based backend service to an iOS app using Windows Azure Mobile Services. You will create both a new mobile service and a simple TodoList app that stores app data in the new mobile service. Lastly, you will explore your app code to see how it interacts with Windows Azure Mobile Services.
 
-### Task 1: Create a new mobile service ###
+### Task 1 - Creating a new mobile service ###
 Follow these steps to create a new mobile service.
 
 1. Log into the [Windows Azure Management Portal](https://manage.windowsazure.com) and navigate to Mobile Services
@@ -85,7 +87,7 @@ Follow these steps to create a new mobile service.
 
 You have now created a new mobile service that can be used by your mobile apps.
 
-### Task 2: Create a New iOS App ###
+### Task 2 - Creating a New iOS App ###
 
 Once you have created your mobile service, you can follow an easy quickstart in the Management Portal to either create a new app or modify an existing app to connect to your mobile service.
 In this section you will create a new iOS app that is connected to your mobile service.
@@ -116,7 +118,7 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 	> **Note** This downloads the project for the sample _To do list_ application that is connected to your mobile service, along with the Mobile Services iOS SDK. Save the compressed project file to your local computer, and make a note of where you saved it.
 
-#### Task 3: Hosting and Running Your iOS App ####
+#### Task 3 - Hosting and Running Your iOS App ####
 
 1. Browse to the location where you saved the compressed project files, expand the files on your computer, and open the project file using XCode.
 
@@ -189,7 +191,7 @@ In this section you will create a new iOS app that is connected to your mobile s
 	_Todolist updated data_
 
 
-### Task 4: Exploring your App Code ###
+### Task 4 - Exploring your App Code ###
 
 In this step we will explore To do list application code and see how simple the Windows Azure Mobile Services Client SDK makes it to interact with Windows Azure Mobile Services.
 
@@ -224,11 +226,11 @@ In this step we will explore To do list application code and see how simple the 
 
 ---
 <a name="Exercise2"></a>
-### Exercise 2: Validate and Modify Data Using Server Scripts ###
+## Exercise 2: Validating Data Using Server Scripts ##
 
-In this exercise, you will download an app that stores data in memory, create a new mobile service, integrate the mobile service with the app, and then login to the Windows Azure Management Portal to view changes to data made when running the app.
+This exercise shows you how to leverage server scripts in Windows Azure Mobile Services. Server scripts are registered in a mobile service and can be used to perform a wide range of operations on data being inserted and updated, including validation and data modification. In this exercise, you will define and register server scripts that validate and modify data. Because the behavior of server side scripts often affects the client, you will also update your iOS app to take advantage of these new behaviors.
 
-### Task 1: Add validation###
+### Task 1 - Adding validation###
 
 It is always a good practice to validate the length of data that is submitted by users. First, you register a script that validates the length of string data sent to the mobile service and rejects strings that are too long, in this case longer than 10 characters.
 
@@ -263,7 +265,7 @@ It is always a good practice to validate the length of data that is submitted by
 	> 
 	>This script checks the length of the **text** property and sends an error response when the length exceeds 10 characters. Otherwise, the **execute** method is called to complete the insert.
 
-### Task 2: Update the client ###
+### Task 2 - Updating the client ###
 
 Now that the mobile service is validating data and sending error responses, you need to update your app to be able to handle error responses from validation.
 
@@ -324,9 +326,11 @@ After this line of code, replace the remainder of the block with the following c
 
 ---
 <a name="Exercise3"></a>
-### Exercise 3: Get Started with Push Notifications ###
+## Exercise 3: Get Started with Push Notifications ##
 
-### Task 1: Generate the Certificate Signing Request file###
+This exercise shows you how to use Windows Azure Mobile Services to send push notifications to an iOS app. In this exercise you add push notifications using the iOS Provisioning Portal service to the quick start project. When complete, your mobile service will send a push notification each time a record is inserted.
+
+### Task 1 - Generating the Certificate Signing Request file###
 
 First you must generate the Certificate Signing Request (CSR) file, which is used by Apple to generate a signed certificate.
 
@@ -340,7 +344,7 @@ First you must generate the Certificate Signing Request (CSR) file, which is use
 
 1.	Select your **User Email Address**, type **Common Name** and **CA Email Address** values, make sure that **Saved to disk** is selected, and then click **Continue**.
 
-	![Certificcate assistant](Images/certificcate-assistant.png?raw=true "Certificcate assistant")
+	![Certificate assistant](./Images/certificate-assistant.png?raw=true "Certificate assistant")
 
 	_Certificcate assistant_
 
@@ -352,7 +356,7 @@ First you must generate the Certificate Signing Request (CSR) file, which is use
 
 This saves the CSR file in the selected location; the default location is in the Desktop. Remember the location chosen for this file.
 
-### Task 2: Register your app for push notifications###
+### Task 2 - Registering your app for push notifications###
 
 To be able to send push notifications to an iOS app from mobile services, you must register your application with Apple and also register for push notifications.
 
@@ -390,7 +394,7 @@ This displays the Apple Push Notification service SSL Certificate Assistant.
 
 1.	Click **Browse**, browse to the location where you saved the CSR file that you created in the first task, then click **Generate**.
 
-	![Submit certificate request](Images/submit-certificate-request.png?raw=true "Submit certificate request")
+	![Submit certificate request](Images/submit-certificate-request.png?raw=true  "Submit certificate request")
 
 	_Submit certificate request_
 
@@ -415,7 +419,7 @@ This installs the new certificate in the Keychain, as shown below:
 
 Later, you will use this certificate to generate a .p12 file and upload it to Mobile Services to enable authentication with APNS.
 
-### Task 3: Create a provisioning profile for the app###
+### Task 3 - Creating a provisioning profile for the app###
 
 1.	Back in the [iOS Provisioning Portal]( http://go.microsoft.com/fwlink/p/?linkid=272456&clcid=0x409), select **Provisioning**, then click **New Profile**.
 
@@ -460,7 +464,7 @@ This creates a new provisioning profile.
 
 	This ensures that the Xcode project uses the new profile for code signing. Next, you must upload the certificate to Mobile Services.
 
-### Task 4: Configure Mobile Services to send push requests###
+### Task 4 - Configuring Mobile Services to send push requests###
 
 After you have registered your app with APNS and configured your project, you must next configure your mobile service to integrate with APNS.
 
@@ -493,7 +497,7 @@ Make a note of the file name and location of the exported certificate.
 
 	Both your mobile service is now configured to work with APNS.
 	
-### Task 5: Add push notifications to your App###
+### Task 5 - Adding push notifications to your App###
 
 1.	In Xcode, open the QSAppDelegate.h file and add the following property below the ***window** property:
 
@@ -590,7 +594,7 @@ Make a note of the file name and location of the exported certificate.
 
 	>Your app is now updated to support push notifications.
 
-###Task 6: Update the registered insert script in the Management Portal###
+###Task 6 - Updating the registered insert script in the Management Portal###
 
 1.	In the Windows Azure Management Portal, click the **Data** tab and then click the **TodoItem** table.
 
@@ -629,8 +633,7 @@ Make a note of the file name and location of the exported certificate.
 
 	>**NOTE**: This script delays sending the notification to give you time to close the app to receive a toast notification.
 
-
-### Task 7: Test push notifications in your app###
+### Task 7 - Testing push notifications in your app###
 
 1.	Press the **Run** button to build the project and start the app in an iOS capable device, then click **OK** to accept push notifications
 
@@ -660,11 +663,11 @@ Make a note of the file name and location of the exported certificate.
 
 ---
 <a name="Exercise4"></a>
-### Exercise 4: Get Started with Auth ###
+## Exercise 4: Getting Started with Auth ##
 
-This exersice shows you how to add facebook authentication to the Application.
+In this exercise you will see how to authenticate users in Windows Azure Mobile Services from your app. You will add authentication to your project using an identity provider that is supported by Mobile Services. After being successfully authenticated and authorized by Mobile Services, you'll be able to use the app.
 
-### Task 1: Register your app ###
+### Task 1 - Registering your app ###
 
 To be able to authenticate users, you must register your iOS app at the Facebook Developer Center.
 
@@ -691,7 +694,7 @@ To be able to authenticate users, you must register your iOS app at the Facebook
 	_Todolist Identity tab_
 
 
-### Task 2: Restrict permissions to authenticated users ###
+### Task 2 - Restricting permissions to authenticated users ###
 
 1.	In the Management Portal, click the **Data** tab, and then click the **TodoItem** table.
 
@@ -714,7 +717,7 @@ To be able to authenticate users, you must register your iOS app at the Facebook
 	>**Note**: This happens because the app attempts to access Mobile Services as an unauthenticated user, but the_TodoItem_ table now requires authentication.
 Next, you will update the app to authenticate users before requesting resources from the mobile service.
 
-### Task 3: Add authentication to the app ###
+### Task 3 - Adding authentication to the app ###
 
 1.	Open the project file **QSTodoListViewController.m** and in the **viewDidLoad** method, remove the following code that reloads the data into the table:
 
@@ -750,12 +753,5 @@ Next, you will update the app to authenticate users before requesting resources 
 
 1. Log-on with Facebook (or your chosen identity provider) and accept Facebook to use your public profile. When you are successfully logged-in, the app should run without errors, and you should be able to query Mobile Services and make updates to data.
 
-
-
 ---
 
-<a name="Summary" />
-##Summary##
-By completing this Hands-on Lab you have learned how to:
-
- - 
