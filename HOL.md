@@ -8,6 +8,12 @@
 
 Windows Azure Mobile Services is a Windows Azure service offering designed to make it easy to create highly-functional mobile apps using Windows Azure. Mobile Services brings together a set of Windows Azure services that enable backend capabilities for your apps. These capabilities includes simple provisioning and management of tables for storing app data, integration with notification services, integration with well-known identity providers for authentication, among others. 
 
+he following is a functional representation of the Mobile Services architecture.
+
+![Mobile Services Diagram](Images/mobile-services-diagram.png?raw=true "Mobile Services Diagram")
+
+_Mobile Services Diagram_
+
 In this hands-on lab you will learn how to add a cloud-based backend service to an iOS app using Windows Azure Mobile Services. You will create both a new mobile service and a simple TodoList app that stores app data in the new mobile service.
 
 <a name="Objectives"></a>
@@ -15,9 +21,11 @@ In this hands-on lab you will learn how to add a cloud-based backend service to 
 
 In this hands-on lab, you will learn how to:
 
-- Create a new Mobile service and use it as the backend storage for an iOS app
-- Validate data server-side using Mobile Services Server Scripts feature
-- Authenticate users with different identity providers using Mobile Services
+- Create a Windows Azure Mobile Service for an iOS app.
+- Store app data in the new mobile service.
+- Validate data server-side using Mobile Services Server Scripts feature.
+- Add support for push notifications to your applications
+- Authenticate users with different identity providers using Mobile Services.
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -28,7 +36,6 @@ Completing this tutorial requires:
 * An iOS 5.0 (or later version) capable device
 * Windows Azure account that has the Windows Azure Mobile Services feature enabled. [Windows Azure Free Trial](http://www.windowsazure.com/en-us/pricing/free-trial/?WT.mc_id=AE564AB28&returnurl=http%3A%2F%2Fwww.windowsazure.com%2Fen-us%2Fdevelop%2Fmobile%2Ftutorials%2Fget-started-ios%2F).
 * iOS Developer Program membership
-
 
 ---
 
