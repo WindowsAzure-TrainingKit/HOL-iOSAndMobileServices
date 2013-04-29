@@ -15,7 +15,9 @@ In this hands-on lab you will learn how to add a cloud-based backend service to 
 
 In this hands-on lab, you will learn how to:
 
-- 
+- Create a new Mobile service and use it as the backend storage for an iOS app
+- Validate data server-side using Mobile Services Server Scripts feature
+- Authenticate users with different identity providers using Mobile Services
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -132,7 +134,7 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 	_Run the application_
 
-1. In the app, type meaningful text, such as _Sign-Up for a free trial_ and then click the plus (**+**) icon.
+1. In the app, type meaningful text, such as _Sign-Up for a free trial_ and then click the plus ( **+** ) icon.
 
 1. Add two more tasks:
 	* _Create the Mobile Service_
@@ -223,12 +225,16 @@ In this step we will explore To do list application code and see how simple the 
 
 	>**Note:** To add additional columns to the table, simply send an insert request including the new properties from your app with dynamic schema enabled. Once a column is created, its data type cannot be changed by Mobile Services. Insert or update operations fail when the type of a property in the JSON object cannot be converted to the type of the equivalent column in the table.
 
-
 ---
 <a name="Exercise2"></a>
 ## Exercise 2: Validating Data Using Server Scripts ##
 
 This exercise shows you how to leverage server scripts in Windows Azure Mobile Services. Server scripts are registered in a mobile service and can be used to perform a wide range of operations on data being inserted and updated, including validation and data modification. In this exercise, you will define and register server scripts that validate and modify data. Because the behavior of server side scripts often affects the client, you will also update your iOS app to take advantage of these new behaviors.
+
+
+This exercise requires that you've completed [Exercise 1](#Exercise1).
+
+> **Note**: For more information on server scripts check this [reference](http://www.windowsazure.com/en-us/develop/mobile/how-to-guides/work-with-server-scripts/).
 
 ### Task 1 - Adding validation###
 
@@ -271,7 +277,7 @@ Now that the mobile service is validating data and sending error responses, you 
 
 1.	Switch back to XCode.
 
-1.	Press the **Run** button (**Command** + **R**) to build the project and start the app, then type text longer than 10 characters in the textbox and click the plus (**+**) icon.
+1.	Press the **Run** button ( **Command** + **R** ) to build the project and start the app, then type text longer than 10 characters in the textbox and click the plus ( **+** ) icon.
 
 	>**Note**: Notice that the app raises an unhandled error as a result of the 400 response (Bad Request) returned by the mobile service.
 
@@ -643,7 +649,7 @@ Make a note of the file name and location of the exported certificate.
 
 	>**NOTE**: You must explicitly accept push notifications from your app. This request only occurs the first time that the app runs.
 
-1.	In the app, type meaningful text, such as _A new Mobile Services task_ and then click the plus (**+**) icon.
+1.	In the app, type meaningful text, such as _A new Mobile Services task_ and then click the plus ( **+** ) icon.
 
 	![New task](Images/new-task.png?raw=true "New task")
 
@@ -743,7 +749,7 @@ Next, you will update the app to authenticate users before requesting resources 
 	}
 	````
 
-	>**NOTE:** If you are using an identity provider other than Facebook, change the value passed tologinWithProvider above to one of the following:microsoftaccount,facebook,twitter, orgoogle.
+	>**NOTE:** If you are using an identity provider other than Facebook, change the value passed tologinWithProvider above to one of the following: microsoftaccount, facebook, twitter, or google.
 
 1.	Press the **Run** button to build the project, start the app in the iPhone emulator
 
