@@ -1,5 +1,5 @@
 ﻿<a name="HOLTop"></a>
-# Get started with Windows Azure Mobile Services and iOS #
+# Getting started with Windows Azure Mobile Services and iOS #
 
 ---
 
@@ -22,20 +22,23 @@ In this hands-on lab you will learn how to add a cloud-based backend service to 
 In this hands-on lab, you will learn how to:
 
 - Create a Windows Azure Mobile Service for an iOS app.
-- Store app data in the new mobile service.
-- Validate data server-side using Mobile Services Server Scripts feature.
+- Store app data in the new mobile service
+- Validate data server-side using Mobile Services Server Scripts feature
 - Add support for push notifications to your applications
-- Authenticate users with different identity providers using Mobile Services.
+- Authenticate users with different identity providers using Mobile Services
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
 
-Completing this tutorial requires:
+The following is required to complete this hands-on lab:
 
 * [XCode 4.5](https://go.microsoft.com/fwLink/p/?LinkID=266532)
 * An iOS 5.0 (or later version) capable device
-* Windows Azure account that has the Windows Azure Mobile Services feature enabled. [Windows Azure Free Trial](http://www.windowsazure.com/en-us/pricing/free-trial/?WT.mc_id=AE564AB28&returnurl=http%3A%2F%2Fwww.windowsazure.com%2Fen-us%2Fdevelop%2Fmobile%2Ftutorials%2Fget-started-ios%2F).
 * iOS Developer Program membership
+* Windows Azure account that has the Windows Azure Mobile Services feature enabled
+
+	>**Note:** If you don't have an account, you can create a free trial account in just a couple of minutes. For details, see [Windows Azure Free Trial](http://aka.ms/WATK-FreeTrial).
+	If you have an existing account but need to enable the Windows Azure Mobile Services preview, see [Enable Windows Azure preview features](http://www.windowsazure.com/en-us/develop/mobile/tutorials/create-a-windows-azure-account/#enable).
 
 ---
 
@@ -49,18 +52,17 @@ This hands-on lab includes the following exercises:
 1. [Getting Started with Push Notifications](#Exercise3)
 1. [Getting Started with Auth](#Exercise4)
 
-
-Estimated time to complete this lab: **30 minutes**.
+Estimated time to complete this lab: **60 minutes**.
 
 <a name="Exercise1"></a>
-## Exercise 1: Building your first Windows Azure App ##
+## Exercise 1: Creating Your First Mobile Service ##
 
 This exercise shows you how to add a cloud-based backend service to an iOS app using Windows Azure Mobile Services. You will create both a new mobile service and a simple TodoList app that stores app data in the new mobile service. Lastly, you will explore your app code to see how it interacts with Windows Azure Mobile Services.
 
-### Task 1 - Creating a new mobile service ###
+### Task 1 - Creating a New Mobile Service ###
 Follow these steps to create a new mobile service.
 
-1. Log into the [Windows Azure Management Portal](https://manage.windowsazure.com) and navigate to Mobile Services
+1. Log into the [Windows Azure Management Portal](https://manage.windowsazure.com) and navigate to Mobile Services.
 
 1. At the bottom of the navigation pane, click **+NEW**.
 
@@ -84,7 +86,7 @@ Follow these steps to create a new mobile service.
 
 	This displays the **Specify database settings** page.
 
-	> **Note:** As part of this tutorial, you create a new SQL Database instance and server. You can reuse this new database and administer it as you would any other SQL Database instance. If you already have a database in the same region as the new mobile service, you can instead chooseUse existing Databaseand then select that database. The use of a database in a different region is not recommended because of additional bandwidth costs and higher latencies.
+	> **Note:** As part of this hands-on lab, you create a new SQL Database instance and server. You can reuse this new database and administer it as you would any other SQL Database instance. If you already have a database in the same region as the new mobile service, you can instead chooseUse existing Databaseand then select that database. The use of a database in a different region is not recommended because of additional bandwidth costs and higher latencies.
 
 1. In **Name**, type the name of the new database, then type **Login name**, which is the administrator login name for the new SQL Database server, type and confirm the password, and click the check button to complete the process.
  
@@ -127,7 +129,7 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 	> **Note** This downloads the project for the sample _To do list_ application that is connected to your mobile service, along with the Mobile Services iOS SDK. Save the compressed project file to your local computer, and make a note of where you saved it.
 
-#### Task 3 - Hosting and Running Your iOS App ####
+### Task 3 - Hosting and Running Your iOS App ###
 
 1. Browse to the location where you saved the compressed project files, expand the files on your computer, and open the project file using XCode.
 
@@ -153,7 +155,7 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 	> **Note:** You can review the code that accesses your mobile service to query and insert data, which is found in the TodoService.m file.
 
-1. Stop the application running in the IPhone Simulator
+1. Stop the application running in the IPhone Simulator.
 
 1. Back in the Windows Azure Management Portal, click the **Data** tab and then click the **TodoItems** table.
 
@@ -171,17 +173,17 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 1. Change the **Scheme** to use IPad Simulator and **Run** the application.
 
-1. Swipe in _Sign-up for the free trial_ tasks to show the **Complete** button
+1. Swipe in _Sign-up for the free trial_ tasks to show the **Complete** button.
 
-1. Complete the task
+1. Complete the task.
 
 	![Swipe to show complete button](./Images/swipe-to-show-complete-button.png?raw=true "Swipe to show complete button")
 
 	_Swipe to show complete button_
 
-1. Perform the same operation with task _Create the Mobile Service_
+1. Perform the same operation with task _Create the Mobile Service_.
 
-1. Do not mark the _Complete the Hands-On Lab_ task as **Complete**
+1. Do not mark the _Complete the Hands-On Lab_ task as **Complete**.
 
 	![Todolist app running in IPad simulator](./Images/todolist-app-running-in-ipad-simulator.png?raw=true "Todolist app running in IPad simulator")
 
@@ -189,16 +191,15 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 	>**Note**: You will see that the tasks disappear when they are complete.
 
-1. Stop the application running in the IPad Simulator
+1. Stop the application running in the IPad Simulator.
 
 1. Back in the Windows Azure Management Portal, click the **Data** tab and then click the **TodoItems** table.
 
-1. Check how _Sign-up for the free trial_ and Create the Mobile Service tasks have the **complete** flag as **true** while _Complete the Hands-On Lab_ task is **false**
+1. Check how _Sign-up for the free trial_ and Create the Mobile Service tasks have the **complete** flag as **true** while _Complete the Hands-On Lab_ task is **false**.
 
 	![Todolist data details](./Images/todolist-data-details2.png?raw=true "Todolist data details")
 
 	_Todolist updated data_
-
 
 ### Task 4 - Exploring your App Code ###
 
@@ -218,7 +219,7 @@ In this step we will explore To do list application code and see how simple the 
 
 	_Application Key and endpoint_
 
-1. Below thee definition of the MSClient class, we can see the configuration of the table name we created in the previous task.
+1. Below the definition of the MSClient class, we can see the configuration of the table name we created in the previous task.
 
 	![Table name configuration](./Images/table-name-configuration.png?raw=true"Table name configuration")
 
@@ -243,7 +244,7 @@ This exercise requires that you've completed [Exercise 1](#Exercise1).
 
 > **Note**: For more information on server scripts check this [reference](http://www.windowsazure.com/en-us/develop/mobile/how-to-guides/work-with-server-scripts/).
 
-### Task 1 - Adding validation###
+### Task 1 - Adding Validation###
 
 It is always a good practice to validate the length of data that is submitted by users. First, you register a script that validates the length of string data sent to the mobile service and rejects strings that are too long, in this case longer than 10 characters.
 
@@ -253,10 +254,9 @@ It is always a good practice to validate the length of data that is submitted by
 
 	_Mobile Services_
 
-
 1.	Click the **Data** tab, then click the **TodoItem** table.
 
-1. Click **Script**, then select the **Insert** operation
+1. Click **Script**, then select the **Insert** operation.
 
 	![Insert operation in script tab](Images/insert-operation-in-script-tab.png?raw=true "Insert operation in script tab")
 
@@ -274,11 +274,11 @@ It is always a good practice to validate the length of data that is submitted by
 	}
 	````
 
-	> **NOTE**You can remove a registered script on the Script tab by clicking Clear and then Save.
+	> **Note**: You can remove a registered script on the Script tab by clicking Clear and then Save.
 	> 
 	>This script checks the length of the **text** property and sends an error response when the length exceeds 10 characters. Otherwise, the **execute** method is called to complete the insert.
 
-### Task 2 - Updating the client ###
+### Task 2 - Updating the Client ###
 
 Now that the mobile service is validating data and sending error responses, you need to update your app to be able to handle error responses from validation.
 
@@ -359,7 +359,7 @@ First you must generate the Certificate Signing Request (CSR) file, which is use
 
 	![Certificate assistant](./Images/certificate-assistant.png?raw=true "Certificate assistant")
 
-	_Certificcate assistant_
+	_Certificate assistant_
 
 1.	Type a name for the Certificate Signing Request (CSR) file in **Save As**, select the location in **Where**, then click **Save**.
 
@@ -388,7 +388,7 @@ This generates your app ID.
 
 	_Create App Id_
 
-	>**NOTE**: If you choose to supply a Bundle Identifier value other thanMobileServices.Quickstart, you must also update the bundle identifier value in your Xcode project.
+	>**Note**: If you choose to supply a Bundle Identifier value other thanMobileServices.Quickstart, you must also update the bundle identifier value in your Xcode project.
 
 1.	Locate the app ID that you just created, then click **Configure**.
 
@@ -403,7 +403,7 @@ This displays the Apple Push Notification service SSL Certificate Assistant.
 
 	_Mobile Service Quickstart_
 
-	>**NOTE**: This tutorial uses a development certificate. The same process is used when registering a production certificate. Just make sure that you set the same certificate type when you upload the certificate to Mobile Services.
+	>**Note**: This hands-on lab uses a development certificate. The same process is used when registering a production certificate. Just make sure that you set the same certificate type when you upload the certificate to Mobile Services.
 
 1.	Click **Browse**, browse to the location where you saved the CSR file that you created in the first task, then click **Generate**.
 
@@ -419,7 +419,7 @@ This displays the Apple Push Notification service SSL Certificate Assistant.
 
 	_Cer file_
 
-	> **NOTE**: By default, the downloaded file a development certificate is named aps_development.cer.
+	> **Note**: By default, the downloaded file a development certificate is named aps_development.cer.
 
 1.	Double-click the downloaded push certificate **aps_development.cer**.
 This installs the new certificate in the Keychain, as shown below:
@@ -428,7 +428,7 @@ This installs the new certificate in the Keychain, as shown below:
 
 	_Certificate_
 
-	>**NOTE**: The name in your certificate might be different, but it will be prefixed with Apple Development iOS Push Notification Services:.
+	>**Note**: The name in your certificate might be different, but it will be prefixed with Apple Development iOS Push Notification Services.
 
 Later, you will use this certificate to generate a .p12 file and upload it to Mobile Services to enable authentication with APNS.
 
@@ -455,7 +455,7 @@ This creates a new provisioning profile.
 
 	_Download button_
 
-	> **NOTE**: You may need to refresh the page to see the new profile.
+	> **Note**: You may need to refresh the page to see the new profile.
 
 1.	In Xcode, open the Organizer select the Devices view, select **Provisioning Profiles** in the **Library** section in the left pane, and then click the **Import** button at the very bottom of the middle pane.
 
@@ -488,7 +488,7 @@ Make a note of the file name and location of the exported certificate.
 
 	_Save p12_
 
-	>**NOTE**: This tutorial creates a QuickstartPusher.p12 file. Your file name and location might be different.
+	>**Note**: This hands-on lab creates a QuickstartPusher.p12 file. Your file name and location might be different.
 
 1.	Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/), click **Mobile Services**, and then click your app.
 
@@ -506,11 +506,11 @@ Make a note of the file name and location of the exported certificate.
 
 	_Upload certificate dialog_
 
-	>**NOTE**: This lab uses developement certificates.
+	>**Note**: This lab uses development certificates.
 
 	Both your mobile service is now configured to work with APNS.
 	
-### Task 5 - Adding push notifications to your App###
+### Task 5 - Adding push Notifications to your App###
 
 1.	In Xcode, open the QSAppDelegate.h file and add the following property below the ***window** property:
 
@@ -519,9 +519,9 @@ Make a note of the file name and location of the exported certificate.
 	@property (strong, nonatomic) NSString *deviceToken;
 	````
 
-	>**NOTE**: When dynamic schema is enabled on your mobile service, a new 'deviceToken' column is automatically added to the TodoItem table when a new item that contains this property is inserted.
+	>**Note**: When dynamic schema is enabled on your mobile service, a new 'deviceToken' column is automatically added to the TodoItem table when a new item that contains this property is inserted.
 
-1.	In QSAppDelegate.m, replace the following handler method inside the implementation:
+1.	In **QSAppDelegate.m**, replace the following handler method inside the implementation.
 
 	````objective-c
 	-(BOOL)application:(UIApplication *)application 
@@ -535,7 +535,7 @@ Make a note of the file name and location of the exported certificate.
 	}
 	````
 
-1.	In QSAppDelegate.m, add the following handler method inside the implementation:
+1.	In **QSAppDelegate.m**, add the following handler method inside the implementation.
 
 	````objective-c
 	// We are registered, so now store the device token (as a string) on the AppDelegate instance
@@ -547,7 +547,7 @@ Make a note of the file name and location of the exported certificate.
 	}
 	````
 
-1.	In QSAppDelegate.m, add the following handler method inside the implementation:
+1.	In **QSAppDelegate.m**, add the following handler method inside the implementation.
 
 	````objective-c
 	// Handle any failure to register. In this case we set the deviceToken to an empty
@@ -559,7 +559,7 @@ Make a note of the file name and location of the exported certificate.
 	}
 	````
 
-1.	In QSAppDelegate.m, add the following handler method inside the implementation:
+1.	In **QSAppDelegate.m**, add the following handler method inside the implementation.
 
 	````objective-c
 	// Because toast alerts don't work when the app is running, the app handles them.
@@ -574,7 +574,7 @@ Make a note of the file name and location of the exported certificate.
 	}
 	````
 
-1.	In QSTodoListViewController.m, import the QSAppDelegate.h file so that you can use the delegate to obtain the device token:
+1.	In **QSTodoListViewController.m**, import the **QSAppDelegate.h** file so that you can use the delegate to obtain the device token.
 
 	````objective-c
 	#import "QSAppDelegate.h"
@@ -586,7 +586,7 @@ Make a note of the file name and location of the exported certificate.
 	NSDictionary *item = @{ @"text" : itemText.text, @"complete" : @(NO) };
 	````
 
-	Replace this with the following code:
+	Replace this with the following code.
 
 	````objective-c
 	// Get a reference to the AppDelegate to easily retrieve the deviceToken
@@ -603,14 +603,13 @@ Make a note of the file name and location of the exported certificate.
 
 	This adds a reference to the **QSAppDelegate** to obtain the device token and then modifies the request payload to include that device token.
 
-	>**NOTE**You must add this code before to the call to the addItem method.
+	>**Note**You must add this code before to the call to the addItem method.
 
 	>Your app is now updated to support push notifications.
 
-###Task 6 - Updating the registered insert script in the Management Portal###
+###Task 6 - Updating the Registered Insert Script in the Management Portal###
 
 1.	In the Windows Azure Management Portal, click the **Data** tab and then click the **TodoItem** table.
-
 
 	![Todolist data](./Images/todolist-data.png?raw=true "Todolist data")
  
@@ -642,19 +641,19 @@ Make a note of the file name and location of the exported certificate.
 	}
 	````
 
-	This registers a new insert script, which uses the apns object <http://go.microsoft.com/fwlink/p/?linkid=272333&clcid=0x409> to send a push notification (the inserted text) to the device provided in the insert request.
+	This registers a new insert script, which uses the [apns object] (http://go.microsoft.com/fwlink/p/?linkid=272333&clcid=0x409) to send a push notification (the inserted text) to the device provided in the insert request.
 
-	>**NOTE**: This script delays sending the notification to give you time to close the app to receive a toast notification.
+	>**Note**: This script delays sending the notification to give you time to close the app to receive a toast notification.
 
-### Task 7 - Testing push notifications in your app###
+### Task 7 - Testing push Notifications in Your App###
 
-1.	Press the **Run** button to build the project and start the app in an iOS capable device, then click **OK** to accept push notifications
+1.	Press the **Run** button to build the project and start the app in an iOS capable device, then click **OK** to accept push notifications.
 
 	![Prompt to send push notification](Images/prompt-to-send-push-notification.png?raw=true "Prompt to send push notification")
 
 	_Prompt to send push notification_
 
-	>**NOTE**: You must explicitly accept push notifications from your app. This request only occurs the first time that the app runs.
+	>**Note**: You must explicitly accept push notifications from your app. This request only occurs the first time that the app runs.
 
 1.	In the app, type meaningful text, such as _A new Mobile Services task_ and then click the plus ( **+** ) icon.
 
@@ -680,7 +679,7 @@ Make a note of the file name and location of the exported certificate.
 
 In this exercise you will see how to authenticate users in Windows Azure Mobile Services from your app. You will add authentication to your project using an identity provider that is supported by Mobile Services. After being successfully authenticated and authorized by Mobile Services, you'll be able to use the app.
 
-### Task 1 - Registering your app ###
+### Task 1 - Registering your App ###
 
 To be able to authenticate users, you must register your iOS app at the Facebook Developer Center.
 
@@ -706,8 +705,7 @@ To be able to authenticate users, you must register your iOS app at the Facebook
 
 	_Todolist Identity tab_
 
-
-### Task 2 - Restricting permissions to authenticated users ###
+### Task 2 - Restricting Permissions to Authenticated Users ###
 
 1.	In the Management Portal, click the **Data** tab, and then click the **TodoItem** table.
 
@@ -717,28 +715,28 @@ To be able to authenticate users, you must register your iOS app at the Facebook
 
 1.	Click the **Permissions** tab, set all permissions to **Only authenticated users**, and then click **Save**. 
 
-	>**Note**: This will ensure that all operations against the **TodoItem** table require an authenticated user. This also simplifies the scripts in the next tutorial because they will not have to allow for the possibility of anonymous users.
+	>**Note**: This will ensure that all operations against the **TodoItem** table require an authenticated user. This also simplifies the scripts in the next hands-on lab because they will not have to allow for the possibility of anonymous users.
 
 	![Setting table permissions](./Images/setting-table-permissions.png?raw=true "Setting table permissions")
 
 	_Setting table permissions_
 
-1.	Switch back to XCode where we left in exercise 1.
+1.	Switch back to XCode where we left in [exercise 1](#Exercise1).
 
 2.	Press the **Run** button to build the project and start the app in the iPhone emulator; verify that an unhandled exception with a status code of 401 (Unauthorized) is raised after the app starts.
 
 	>**Note**: This happens because the app attempts to access Mobile Services as an unauthenticated user, but the_TodoItem_ table now requires authentication.
 Next, you will update the app to authenticate users before requesting resources from the mobile service.
 
-### Task 3 - Adding authentication to the app ###
+### Task 3 - Adding Authentication to the App ###
 
-1.	Open the project file **QSTodoListViewController.m** and in the **viewDidLoad** method, remove the following code that reloads the data into the table:
+1.	Open the project file **QSTodoListViewController.m** and in the **viewDidLoad** method, remove the following code that reloads the data into the table.
 
 	````objective-c
 	[self refresh];
 	````
 
-1. Just after the **viewDidLoad** method, add the following code:
+1. Just after the **viewDidLoad** method, add the following code.
 
 	````objective-c
 	-(void)viewDidAppear:(BOOL)animated
@@ -756,7 +754,7 @@ Next, you will update the app to authenticate users before requesting resources 
 	}
 	````
 
-	>**NOTE:** If you are using an identity provider other than Facebook, change the value passed tologinWithProvider above to one of the following: microsoftaccount, facebook, twitter, or google.
+	>**Note:** If you are using an identity provider other than Facebook, change the value passed tologinWithProvider above to one of the following: microsoftaccount, facebook, twitter, or google.
 
 1.	Press the **Run** button to build the project, start the app in the iPhone emulator
 
@@ -764,7 +762,6 @@ Next, you will update the app to authenticate users before requesting resources 
 
 	_Facebook authentication_
 
-1. Log-on with Facebook (or your chosen identity provider) and accept Facebook to use your public profile. When you are successfully logged-in, the app should run without errors, and you should be able to query Mobile Services and make updates to data.
+1. Log on with Facebook (or your chosen identity provider) and accept Facebook to use your public profile. When you are successfully logged-in, the app should run without errors, and you should be able to query Mobile Services and make updates to data.
 
----
 

@@ -12,7 +12,7 @@
   <Description>In this hands-on lab you will learn how to add a cloud-based backend service to an iOS app using Windows Azure Mobile Services. You will create both a new mobile service and a simple TodoList app that stores app data in the new mobile service.
 </Description>
   <Document ConversionType="Html">.\HOL.md</Document>
-  <Title>Get started with Windows Azure Mobile Services and iOS</Title>
+  <Title>Getting started with Windows Azure Mobile Services and iOS</Title>
   <Version>1.0.0</Version>
   <Source></Source>
   <DependencyChecker></DependencyChecker>
