@@ -47,7 +47,7 @@ The following is required to complete this hands-on lab:
 
 This hands-on lab includes the following exercises:
 
-1. [Building your first Windows Azure Application](#Exercise1)
+1. [Creating Your First Mobile Service](#Exercise1)
 1. [Validating Data Using Server Scripts](#Exercise2)
 1. [Getting Started with Push Notifications](#Exercise3)
 1. [Getting Started with Auth](#Exercise4)
@@ -288,12 +288,12 @@ Now that the mobile service is validating data and sending error responses, you 
 
 	>**Note**: Notice that the app raises an unhandled error as a result of the 400 response (Bad Request) returned by the mobile service.
 
-1.	In the QSTodoService.m file, locate the following line of code in the **addItem** method:
+1.	In the QSTodoService.m file, locate the following line of code in the **addItem** method.
 
 	````objective-c
 	[self logErrorIfNotNil:error];
 	````
-After this line of code, replace the remainder of the block with the following code:
+After this line of code, replace the remainder of the block with the following code.
 
 	````objective-c
 	BOOL goodRequest = !((error) && (error.code == MSErrorMessageErrorCode));
@@ -432,7 +432,7 @@ This installs the new certificate in the Keychain, as shown below:
 
 Later, you will use this certificate to generate a .p12 file and upload it to Mobile Services to enable authentication with APNS.
 
-### Task 3 - Creating a provisioning profile for the app###
+### Task 3 - Creating a Provisioning Profile for the App###
 
 1.	Back in the [iOS Provisioning Portal]( http://go.microsoft.com/fwlink/p/?linkid=272456&clcid=0x409), select **Provisioning**, then click **New Profile**.
 
@@ -580,7 +580,7 @@ Make a note of the file name and location of the exported certificate.
 	#import "QSAppDelegate.h"
 	````
 
-1.	In QSTodoListViewController.m, modify the **(IBAction)onAdd** action by locating the following line:
+1.	In QSTodoListViewController.m, modify the **(IBAction)onAdd** action by locating the following line.
 
 	````objective-c
 	NSDictionary *item = @{ @"text" : itemText.text, @"complete" : @(NO) };
