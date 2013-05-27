@@ -8,7 +8,7 @@
 
 Windows Azure Mobile Services is a Windows Azure service offering designed to make it easy to create highly-functional mobile apps using Windows Azure. Mobile Services brings together a set of Windows Azure services that enable backend capabilities for your apps. These capabilities includes simple provisioning and management of tables for storing app data, integration with notification services, integration with well-known identity providers for authentication, among others. 
 
-he following is a functional representation of the Mobile Services architecture.
+The following is a functional representation of the Mobile Services architecture.
 
 ![Mobile Services Diagram](Images/mobile-services-diagram.png?raw=true "Mobile Services Diagram")
 
@@ -22,10 +22,10 @@ In this hands-on lab you will learn how to add a cloud-based backend service to 
 In this hands-on lab, you will learn how to:
 
 - Create a Windows Azure Mobile Service for an iOS app.
-- Store app data in the new mobile service
-- Validate data server-side using Mobile Services Server Scripts feature
-- Add support for push notifications to your applications
-- Authenticate users with different identity providers using Mobile Services
+- Store app data in the new mobile service.
+- Validate data server-side using Mobile Services Server Scripts feature.
+- Add support for push notifications to your applications.
+- Authenticate users with different identity providers using Mobile Services.
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -86,7 +86,7 @@ Follow these steps to create a new mobile service.
 
 	This displays the **Specify database settings** page.
 
-	> **Note:** As part of this hands-on lab, you create a new SQL Database instance and server. You can reuse this new database and administer it as you would any other SQL Database instance. If you already have a database in the same region as the new mobile service, you can instead chooseUse existing Databaseand then select that database. The use of a database in a different region is not recommended because of additional bandwidth costs and higher latencies.
+	> **Note:** As part of this hands-on lab, you create a new SQL Database instance and server. You can reuse this new database and administer it as you would any other SQL Database instance. If you already have a database in the same region as the new mobile service, you can instead choose **Use existing Database** and then select that database. The use of a database in a different region is not recommended because of additional bandwidth costs and higher latencies.
 
 1. In **Name**, type the name of the new database, then type **Login name**, which is the administrator login name for the new SQL Database server, type and confirm the password, and click the check button to complete the process.
  
@@ -115,13 +115,13 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 1. If you haven't already installed [XCode](https://go.microsoft.com/fwLink/p/?LinkID=266532), click **Install XCode** and perform the installation process.
 
-1. Click **Create TodoItems table** to create a table to store app data.
+1. Click **Create TodoItem Table** to create a table to store app data.
 
 	![Create TodoItem Table](./Images/create-todo-items-table.png?raw=true "Crate a new iOS app")
 
 	_Create TodoItem Table_
 
-1. Under **Download and run app**, click **Download**.
+1. Under **Download and run your app**, click **Download**.
 
 	![Download Source Code](./Images/download-source code.png?raw=true "Crate a new iOS app")
 
@@ -157,7 +157,7 @@ In this section you will create a new iOS app that is connected to your mobile s
 
 1. Stop the application running in the IPhone Simulator.
 
-1. Back in the Windows Azure Management Portal, click the **Data** tab and then click the **TodoItems** table.
+1. Back in the Windows Azure Management Portal, click the **Data** tab and then click the **TodoItem** table.
 
 	![Todolist data](./Images/todolist-data.png?raw=true "Todolist data")
  
@@ -207,7 +207,7 @@ In this step we will explore To do list application code and see how simple the 
 
 1. Switch back to the XCode editor.
 
-1. In solution explorer expand the references folder and see the Windows Azure Mobile Services Client SDK reference.
+1. In Solution Explorer expand the **Frameworks** folder and see the Windows Azure Mobile Services Client SDK reference.
 
 	![Windows Azure Mobile Services SDK](./Images/windows-sdk.png?raw=true"Windows Azure Mobile Services SDK")
 
@@ -267,7 +267,7 @@ It is always a good practice to validate the length of data that is submitted by
 	````objective-c
 	function insert(item, user, request) {
 	    if (item.text.length > 10) {
-	        request.respond(statusCodes.BAD_REQUEST, 'Text length must be 10 characters or less.');
+	        request.respond(statusCodes.BAD_REQUEST, 'Text length must be under 10.');
 	    } else {
 	        request.execute();
 	    }
@@ -327,7 +327,7 @@ After this line of code, replace the remainder of the block with the following c
 	
 	>**Note**: This logs the error to the output window and displays it to the user.
 
-1.	Rebuild and start the app.
+1.	Rebuild and start the app using the iPhone Simulator.
 
 1. Enter a text with more than 10 characters (e.g. _A user-specific task_.).
 
@@ -335,7 +335,7 @@ After this line of code, replace the remainder of the block with the following c
 
 	_Validation Error_
 
-	>**Note**: Notice that error is handled and the error messaged is displayed to the user.
+	>**Note**: Notice that the error is handled and the messaged is displayed to the user.
 
 ---
 <a name="Exercise3"></a>
@@ -457,7 +457,7 @@ This creates a new provisioning profile.
 
 	> **Note**: You may need to refresh the page to see the new profile.
 
-1.	In Xcode, open the Organizer select the Devices view, select **Provisioning Profiles** in the **Library** section in the left pane, and then click the **Import** button at the very bottom of the middle pane.
+1.	In Xcode, open the Organizer, select the Devices view, select **Provisioning Profiles** in the **Library** section in the left pane, and then click the **Import** button at the very bottom of the middle pane.
 
 	![Import](Images/import.png?raw=true "Import")
 
@@ -512,14 +512,14 @@ Make a note of the file name and location of the exported certificate.
 	
 ### Task 5 - Adding push Notifications to your App###
 
-1.	In Xcode, open the QSAppDelegate.h file and add the following property below the ***window** property:
+1.	In Xcode, open the QSAppDelegate.h file and add the following property below the **window** property:
 
 
 	````objective-c
 	@property (strong, nonatomic) NSString *deviceToken;
 	````
 
-	>**Note**: When dynamic schema is enabled on your mobile service, a new 'deviceToken' column is automatically added to the TodoItem table when a new item that contains this property is inserted.
+	> **Note:** When dynamic schema is enabled on your mobile service, a new 'deviceToken' column is automatically added to the TodoItem table when a new item that contains this property is inserted.
 
 1.	In **QSAppDelegate.m**, replace the following handler method inside the implementation.
 
@@ -603,7 +603,7 @@ Make a note of the file name and location of the exported certificate.
 
 	This adds a reference to the **QSAppDelegate** to obtain the device token and then modifies the request payload to include that device token.
 
-	>**Note**You must add this code before to the call to the addItem method.
+	>**Note:** You must add this code before to the call to the addItem method.
 
 	>Your app is now updated to support push notifications.
 
@@ -683,9 +683,9 @@ In this exercise you will see how to authenticate users in Windows Azure Mobile 
 
 To be able to authenticate users, you must register your iOS app at the Facebook Developer Center.
 
-1. Navigate to the Facebook Developer Center page, log on with your Facebook account if needed, and then follow the instructions to create your app.
+1. Navigate to the [Facebook Developer Center](https://developers.facebook.com/) page, log on with your Facebook account if needed, and then follow the instructions to create your app.
 
-1. For the Callback URL enter the URL of your Mobile Service. This can be found on the **Dashboard** tab in the portal under **Mobile Service URL** on the right side.
+1. For the **Site URL**, enter the URL of your Mobile Service. This can be found on the **Dashboard** tab in the portal under **Mobile Service URL** on the right side.
 
 1. Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/), click **Mobile Services**, and then click your Mobile Service.
 
@@ -753,8 +753,8 @@ Next, you will update the app to authenticate users before requesting resources 
 		}];
 	}
 	````
+	>**Note:** If you are using an identity provider other than Facebook, change the value passed to **loginWithProvider** above to one of the following: microsoftaccount, facebook, twitter, or google.
 
-	>**Note:** If you are using an identity provider other than Facebook, change the value passed tologinWithProvider above to one of the following: microsoftaccount, facebook, twitter, or google.
 
 1.	Press the **Run** button to build the project, start the app in the iPhone emulator
 
