@@ -335,11 +335,11 @@ After this line of code, replace the remainder of the block with the following c
 
 	_Validation Error_
 
-	>**Note**: Notice that the error is handled and the messaged is displayed to the user.
+	>**Note**: Notice that the error is handled and the message is displayed to the user.
 
 ---
 <a name="Exercise3"></a>
-## Exercise 3: Get Started with Push Notifications ##
+## Exercise 3: Getting Started with Push Notifications ##
 
 This exercise shows you how to use Windows Azure Mobile Services to send push notifications to an iOS app. In this exercise you add push notifications using the iOS Provisioning Portal service to the quick start project. When complete, your mobile service will send a push notification each time a record is inserted.
 
