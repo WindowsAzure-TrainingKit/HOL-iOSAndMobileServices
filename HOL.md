@@ -6,7 +6,7 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Windows Azure Mobile Services is a Windows Azure service offering designed to make it easy to create highly-functional mobile apps using Windows Azure. Mobile Services brings together a set of Windows Azure services that enable backend capabilities for your apps. These capabilities includes simple provisioning and management of tables for storing app data, integration with notification services, integration with well-known identity providers for authentication, among others. 
+Windows Azure Mobile Services is designed to make it easy to create highly-functional mobile apps using Windows Azure. Mobile Services brings together a set of features that enable backend capabilities for your apps. These capabilities includes simple provisioning and management of tables for storing app data, integration with notification services, integration with well-known identity providers for authentication, among others. 
 
 The following is a functional representation of the Mobile Services architecture.
 
@@ -26,6 +26,7 @@ In this hands-on lab, you will learn how to:
 - Validate data server-side using Mobile Services Server Scripts feature.
 - Add support for push notifications to your applications.
 - Authenticate users with different identity providers using Mobile Services.
+- Deliver broadcast push notifications with Notification Hubs.
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -33,12 +34,11 @@ In this hands-on lab, you will learn how to:
 The following is required to complete this hands-on lab:
 
 * [XCode 4.5](https://go.microsoft.com/fwLink/p/?LinkID=266532)
-* An iOS 5.0 (or later version) capable device
+* An iOS 5.0 (or later version) capable device (device required to test push notifications)
 * iOS Developer Program membership
 * Windows Azure account that has the Windows Azure Mobile Services feature enabled
 
 	>**Note:** If you don't have an account, you can create a free trial account in just a couple of minutes. For details, see [Windows Azure Free Trial](http://aka.ms/WATK-FreeTrial).
-	If you have an existing account but need to enable the Windows Azure Mobile Services preview, see [Enable Windows Azure preview features](http://www.windowsazure.com/en-us/develop/mobile/tutorials/create-a-windows-azure-account/#enable).
 
 ---
 
@@ -51,8 +51,9 @@ This hands-on lab includes the following exercises:
 1. [Validating Data Using Server Scripts](#Exercise2)
 1. [Getting Started with Push Notifications](#Exercise3)
 1. [Getting Started with Auth](#Exercise4)
+1. [Getting started with Notification Hubs](#Exercise5)
 
-Estimated time to complete this lab: **60 minutes**.
+Estimated time to complete this lab: **90 minutes**.
 
 <a name="Exercise1"></a>
 ## Exercise 1: Creating Your First Mobile Service ##
