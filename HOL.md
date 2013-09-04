@@ -382,37 +382,49 @@ To be able to send push notifications to an iOS app from mobile services, you mu
 
 	_App IDs_
 
-1.	Type a name for your app in **Description**, enter the value _MobileServices.Quickstart_ in **Bundle Identifier**, then click **Submit**.
-This generates your app ID.
+1.	Type a name for your app in **Description**, enter the value _Bundle Identifier_ (available from your App Target's summary) in **Bundle ID**.
 
-	![Create App Id](Images/create-app-id.png?raw=true "Create App Id")
+	![Set App Info](Images/name-bundle.png?raw=true "Set App Info")
 
-	_Create App Id_
+	_Set App Info_
 
-	>**Note**: If you choose to supply a Bundle Identifier value other thanMobileServices.Quickstart, you must also update the bundle identifier value in your Xcode project.
+	>**Note**: If you choose to supply a Bundle Identifier value other than what the target is set to, you must also update the bundle identifier value in your Xcode project.
+	
+1.	Scroll down to **App Services** and check the **Push Notifications** box before clicking **Continue**.
 
-1.	Locate the app ID that you just created, then click **Configure**.
+	![Enable Push Notifications](Images/app-service.png?raw=true "Enable Push Notifications")
+	
+	_Enable Push Notifications
+	
+1.	Confirm that all of your information is correct and then click **Continue**.
 
-	![Configuration](Images/configuration.png?raw=true "Configuration")
+	![Confirm App ID](Images/confirm-submit.png?raw=true "Confirm App ID")
+	
+	_Confirm App_
 
-	_Configuration_
+1.	Locate the app ID that you just created, then click it to expand.  Click the **Edit** button below it.
 
-1.	Check the **Enable for Apple Push Notification service** check box, then click the **Continue** button for the **Development Push SSL Certificate**.
-This displays the Apple Push Notification service SSL Certificate Assistant.
+	![Edit App](Images/edit-app.png?raw=true "Edit App")
 
-	![Mobile Service Quickstart](Images/mobile-service-quickstart.png?raw=true "Mobile Service Quickstart")
+	_Edit App_
+	
+1.	Scroll down to the **Push Notifications** area and click **Create Certificate** under **Development SSL Certificate**.
 
-	_Mobile Service Quickstart_
+	![Create Certificate](Images/create-push-certificate.png?raw=true "Create Certificate")
+	
+	_Create Certificate_
 
 	>**Note**: This hands-on lab uses a development certificate. The same process is used when registering a production certificate. Just make sure that you set the same certificate type when you upload the certificate to Mobile Services.
 
-1.	Click **Browse**, browse to the location where you saved the CSR file that you created in the first task, then click **Generate**.
+1.	Click **Continue** at the **About Creating a Certificate Signing Request** screen.
 
-	![Submit certificate request](Images/submit-certificate-request.png?raw=true  "Submit certificate request")
+1.	Click **Choose File**, browse to the location where you saved the CSR file that you created in the first task, then click **Generate**.
+
+	![Submit certificate request](Images/generate-certificate.png?raw=true  "Submit certificate request")
 
 	_Submit certificate request_
 
-1.	After the certificate is created by the portal, click **Continue** and on the next screen click **Download**. 
+1.	After the certificate is created by the portal, click **Download**. 
 
 	This downloads the signing certificate and saves it to your computer in your Downloads folder.
 
@@ -435,28 +447,35 @@ Later, you will use this certificate to generate a .p12 file and upload it to Mo
 
 ### Task 3 - Creating a Provisioning Profile for the App###
 
-1.	Back in the [iOS Provisioning Portal]( http://go.microsoft.com/fwlink/p/?linkid=272456&clcid=0x409), select **Provisioning**, then click **New Profile**.
+1.	Back in the [iOS Provisioning Portal]( http://go.microsoft.com/fwlink/p/?linkid=272456&clcid=0x409), select **Development** under **Provisioning**, then click the **+** button in the top right.
 
-	![New Profile](Images/new-profile.png?raw=true "New Profile")
+	![New Profile](Images/dev-provisioning-profiles.png?raw=true "New Profile")
 
 	_New Profile_
+	
+1.	Under **Development** choose to create an **iOS App Development** profile and click **Continue**.
 
-1.	Enter a **Profile Name**, select the **Certificates** and **Devices** to use for testing, select the **App ID**, then click **Submit**.
-This creates a new provisioning profile.
+	![Profile Type](Images/type-provisioning-profile.png?raw=true "Profile Type")
+	
+	_Profile Type_
+	
+1.	Select your **App ID** from the list and click **Continue**.
 
-	![Create iOS development provisioning profile](Images/create-ios-development-provisioning-profile.png?raw=true "Create iOS development provisioning profile")
+	![Select App ID](Images/select-app-id.png?raw=true "Select App ID")
+	
+	_Select App ID_
+	
+1.	Select the certificates you want to with this profile and click **Continue**.
 
-	_Create iOS development provisioning profile_
+1.	Select which devices you'd like to deploy to and click **Continue**.
 
-1.	From the list of provisioning profiles, click the **Download** button for this new profile.
+1.	Enter a **Profile Name** and click **Generate**.
 
-	This downloads the profile to the local computer.
+	![Name Profile](Images/name-profile.png?raw=true "Name Profile")
+	
+	_Name Profile_
 
-	![Download button](Images/download-button.png?raw=true "Download button")
-
-	_Download button_
-
-	> **Note**: You may need to refresh the page to see the new profile.
+1.	Click the **Download** button for this new profile.
 
 1.	In Xcode, open the Organizer, select the Devices view, select **Provisioning Profiles** in the **Library** section in the left pane, and then click the **Import** button at the very bottom of the middle pane.
 
@@ -470,7 +489,7 @@ This creates a new provisioning profile.
 
 	_Open profile_
 
-1.	Under **Targets**, click **Quickstart**, expand **Code Signing Identity**, then under **Debug** select the new profile.
+1.	Under **Targets**, click your app name, select the **Build Settings** tab, expand **Code Signing Identity**, then under **Debug** select the new profile.
 
 	![Debug the selected profile](Images/debug-the-selected-profile.png?raw=true "Debug the selected profile")
 
@@ -482,12 +501,12 @@ This creates a new provisioning profile.
 
 After you have registered your app with APNS and configured your project, you must next configure your mobile service to integrate with APNS.
 
-1.	In Keychain Access, right-click the new certificate, click **Export**, name your file QuickstartPusher, select the**.p12** format, then click **Save**.
+1.	In Keychain Access, click **Certificates** under the **Category** heading in the bottom left.  Find the certificate for your app (it should be **Apple Develompent iOS Push Services: com.MobileServices.AppName**) and right-click the new certificate, click **Export**, name your file QuickstartPusher, select the**.p12** format, then click **Save**.
 Make a note of the file name and location of the exported certificate.
 
-	![Save p12](Images/save-p12.png?raw=true "Save p12")
+	![Select Certificate](Images/certificate-in-keychain.png?raw=true "Select Certificate")
 
-	_Save p12_
+	_Select Certificate_
 
 	>**Note**: This hands-on lab creates a QuickstartPusher.p12 file. Your file name and location might be different.
 
@@ -648,7 +667,7 @@ Make a note of the file name and location of the exported certificate.
 
 ### Task 7 - Testing push Notifications in Your App###
 
-1.	Press the **Run** button to build the project and start the app in an iOS capable device, then click **OK** to accept push notifications.
+1.	Press the **Run** button to build the project and start the app in an iOS capable device, then click **OK** to accept push notifications.  Note that push notifications will not work in the simulator.
 
 	![Prompt to send push notification](Images/prompt-to-send-push-notification.png?raw=true "Prompt to send push notification")
 
@@ -686,7 +705,7 @@ To be able to authenticate users, you must register your iOS app at the Facebook
 
 1. Navigate to the [Facebook Developer Center](https://developers.facebook.com/) page, log on with your Facebook account if needed, and then follow the instructions to create your app.
 
-1. For the **Site URL**, enter the URL of your Mobile Service. This can be found on the **Dashboard** tab in the portal under **Mobile Service URL** on the right side.
+1. Select **Website with Facebook Login** and for the **Site URL**, enter the URL of your Mobile Service. This can be found on the **Dashboard** tab in the portal under **Mobile Service URL** on the right side.
 
 1. Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/), click **Mobile Services**, and then click your Mobile Service.
 
