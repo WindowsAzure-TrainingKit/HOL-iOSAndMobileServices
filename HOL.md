@@ -392,9 +392,9 @@ To be able to send push notifications to an iOS app from mobile services, you mu
 	
 1.	Scroll down to **App Services** and check the **Push Notifications** box before clicking **Continue**.
 
-	![Enable Push Notifications](Images/app-service.png?raw=true "Enable Push Notifications")
+	![Enable Push Notifications](Images/app-services.png?raw=true "Enable Push Notifications")
 	
-	_Enable Push Notifications
+	_Enable Push Notifications_
 	
 1.	Confirm that all of your information is correct and then click **Continue**.
 
@@ -410,7 +410,7 @@ To be able to send push notifications to an iOS app from mobile services, you mu
 	
 1.	Scroll down to the **Push Notifications** area and click **Create Certificate** under **Development SSL Certificate**.
 
-	![Create Certificate](Images/create-push-certificate.png?raw=true "Create Certificate")
+	![Create Certificate](Images/create-push-certficate.png?raw=true "Create Certificate")
 	
 	_Create Certificate_
 
