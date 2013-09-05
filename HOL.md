@@ -6,7 +6,7 @@
 <a name="Overview"></a>
 ## Overview ##
 
-Windows Azure Mobile Services is a Windows Azure service offering designed to make it easy to create highly-functional mobile apps using Windows Azure. Mobile Services brings together a set of Windows Azure services that enable backend capabilities for your apps. These capabilities includes simple provisioning and management of tables for storing app data, integration with notification services, integration with well-known identity providers for authentication, among others. 
+Windows Azure Mobile Services is designed to make it easy to create highly-functional mobile apps using Windows Azure. Mobile Services brings together a set of features that enable backend capabilities for your apps. These capabilities includes simple provisioning and management of tables for storing app data, integration with notification services, integration with well-known identity providers for authentication, among others. 
 
 The following is a functional representation of the Mobile Services architecture.
 
@@ -26,6 +26,7 @@ In this hands-on lab, you will learn how to:
 - Validate data server-side using Mobile Services Server Scripts feature.
 - Add support for push notifications to your applications.
 - Authenticate users with different identity providers using Mobile Services.
+- Deliver broadcast push notifications with Notification Hubs.
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
@@ -33,12 +34,11 @@ In this hands-on lab, you will learn how to:
 The following is required to complete this hands-on lab:
 
 * [XCode 4.5](https://go.microsoft.com/fwLink/p/?LinkID=266532)
-* An iOS 5.0 (or later version) capable device
+* An iOS 5.0 (or later version) capable device (device required to test push notifications)
 * iOS Developer Program membership
 * Windows Azure account that has the Windows Azure Mobile Services feature enabled
 
 	>**Note:** If you don't have an account, you can create a free trial account in just a couple of minutes. For details, see [Windows Azure Free Trial](http://aka.ms/WATK-FreeTrial).
-	If you have an existing account but need to enable the Windows Azure Mobile Services preview, see [Enable Windows Azure preview features](http://www.windowsazure.com/en-us/develop/mobile/tutorials/create-a-windows-azure-account/#enable).
 
 ---
 
@@ -51,8 +51,10 @@ This hands-on lab includes the following exercises:
 1. [Validating Data Using Server Scripts](#Exercise2)
 1. [Getting Started with Push Notifications](#Exercise3)
 1. [Getting Started with Auth](#Exercise4)
+1. [Restricting user data](#Exercise5)
+1. [Getting started with Notification Hubs](#Exercise6)
 
-Estimated time to complete this lab: **60 minutes**.
+Estimated time to complete this lab: **90 minutes**.
 
 <a name="Exercise1"></a>
 ## Exercise 1: Creating Your First Mobile Service ##
@@ -381,37 +383,49 @@ To be able to send push notifications to an iOS app from mobile services, you mu
 
 	_App IDs_
 
-1.	Type a name for your app in **Description**, enter the value _MobileServices.Quickstart_ in **Bundle Identifier**, then click **Submit**.
-This generates your app ID.
+1.	Type a name for your app in **Description**, enter the value _Bundle Identifier_ (available from your App Target's summary) in **Bundle ID**.
 
-	![Create App Id](Images/create-app-id.png?raw=true "Create App Id")
+	![Set App Info](Images/name-bundle.png?raw=true "Set App Info")
 
-	_Create App Id_
+	_Set App Info_
 
-	>**Note**: If you choose to supply a Bundle Identifier value other thanMobileServices.Quickstart, you must also update the bundle identifier value in your Xcode project.
+	>**Note**: If you choose to supply a Bundle Identifier value other than what the target is set to, you must also update the bundle identifier value in your Xcode project.
+	
+1.	Scroll down to **App Services** and check the **Push Notifications** box before clicking **Continue**.
 
-1.	Locate the app ID that you just created, then click **Configure**.
+	![Enable Push Notifications](Images/app-services.png?raw=true "Enable Push Notifications")
+	
+	_Enable Push Notifications_
+	
+1.	Confirm that all of your information is correct and then click **Continue**.
 
-	![Configuration](Images/configuration.png?raw=true "Configuration")
+	![Confirm App ID](Images/confirm-submit.png?raw=true "Confirm App ID")
+	
+	_Confirm App_
 
-	_Configuration_
+1.	Locate the app ID that you just created, then click it to expand.  Click the **Edit** button below it.
 
-1.	Check the **Enable for Apple Push Notification service** check box, then click the **Continue** button for the **Development Push SSL Certificate**.
-This displays the Apple Push Notification service SSL Certificate Assistant.
+	![Edit App](Images/edit-app.png?raw=true "Edit App")
 
-	![Mobile Service Quickstart](Images/mobile-service-quickstart.png?raw=true "Mobile Service Quickstart")
+	_Edit App_
+	
+1.	Scroll down to the **Push Notifications** area and click **Create Certificate** under **Development SSL Certificate**.
 
-	_Mobile Service Quickstart_
+	![Create Certificate](Images/create-push-certficate.png?raw=true "Create Certificate")
+	
+	_Create Certificate_
 
 	>**Note**: This hands-on lab uses a development certificate. The same process is used when registering a production certificate. Just make sure that you set the same certificate type when you upload the certificate to Mobile Services.
 
-1.	Click **Browse**, browse to the location where you saved the CSR file that you created in the first task, then click **Generate**.
+1.	Click **Continue** at the **About Creating a Certificate Signing Request** screen.
 
-	![Submit certificate request](Images/submit-certificate-request.png?raw=true  "Submit certificate request")
+1.	Click **Choose File**, browse to the location where you saved the CSR file that you created in the first task, then click **Generate**.
+
+	![Submit certificate request](Images/generate-certificate.png?raw=true  "Submit certificate request")
 
 	_Submit certificate request_
 
-1.	After the certificate is created by the portal, click **Continue** and on the next screen click **Download**. 
+1.	After the certificate is created by the portal, click **Download**. 
 
 	This downloads the signing certificate and saves it to your computer in your Downloads folder.
 
@@ -434,28 +448,35 @@ Later, you will use this certificate to generate a .p12 file and upload it to Mo
 
 ### Task 3 - Creating a Provisioning Profile for the App###
 
-1.	Back in the [iOS Provisioning Portal]( http://go.microsoft.com/fwlink/p/?linkid=272456&clcid=0x409), select **Provisioning**, then click **New Profile**.
+1.	Back in the [iOS Provisioning Portal]( http://go.microsoft.com/fwlink/p/?linkid=272456&clcid=0x409), select **Development** under **Provisioning**, then click the **+** button in the top right.
 
-	![New Profile](Images/new-profile.png?raw=true "New Profile")
+	![New Profile](Images/dev-provisioning-profiles.png?raw=true "New Profile")
 
 	_New Profile_
+	
+1.	Under **Development** choose to create an **iOS App Development** profile and click **Continue**.
 
-1.	Enter a **Profile Name**, select the **Certificates** and **Devices** to use for testing, select the **App ID**, then click **Submit**.
-This creates a new provisioning profile.
+	![Profile Type](Images/type-provisioning-profile.png?raw=true "Profile Type")
+	
+	_Profile Type_
+	
+1.	Select your **App ID** from the list and click **Continue**.
 
-	![Create iOS development provisioning profile](Images/create-ios-development-provisioning-profile.png?raw=true "Create iOS development provisioning profile")
+	![Select App ID](Images/select-app-id.png?raw=true "Select App ID")
+	
+	_Select App ID_
+	
+1.	Select the certificates you want to with this profile and click **Continue**.
 
-	_Create iOS development provisioning profile_
+1.	Select which devices you'd like to deploy to and click **Continue**.
 
-1.	From the list of provisioning profiles, click the **Download** button for this new profile.
+1.	Enter a **Profile Name** and click **Generate**.
 
-	This downloads the profile to the local computer.
+	![Name Profile](Images/name-profile.png?raw=true "Name Profile")
+	
+	_Name Profile_
 
-	![Download button](Images/download-button.png?raw=true "Download button")
-
-	_Download button_
-
-	> **Note**: You may need to refresh the page to see the new profile.
+1.	Click the **Download** button for this new profile.
 
 1.	In Xcode, open the Organizer, select the Devices view, select **Provisioning Profiles** in the **Library** section in the left pane, and then click the **Import** button at the very bottom of the middle pane.
 
@@ -469,7 +490,7 @@ This creates a new provisioning profile.
 
 	_Open profile_
 
-1.	Under **Targets**, click **Quickstart**, expand **Code Signing Identity**, then under **Debug** select the new profile.
+1.	Under **Targets**, click your app name, select the **Build Settings** tab, expand **Code Signing Identity**, then under **Debug** select the new profile.
 
 	![Debug the selected profile](Images/debug-the-selected-profile.png?raw=true "Debug the selected profile")
 
@@ -481,12 +502,12 @@ This creates a new provisioning profile.
 
 After you have registered your app with APNS and configured your project, you must next configure your mobile service to integrate with APNS.
 
-1.	In Keychain Access, right-click the new certificate, click **Export**, name your file QuickstartPusher, select the**.p12** format, then click **Save**.
+1.	In Keychain Access, click **Certificates** under the **Category** heading in the bottom left.  Find the certificate for your app (it should be **Apple Develompent iOS Push Services: com.MobileServices.AppName**) and right-click the new certificate, click **Export**, name your file QuickstartPusher, select the**.p12** format, then click **Save**.
 Make a note of the file name and location of the exported certificate.
 
-	![Save p12](Images/save-p12.png?raw=true "Save p12")
+	![Select Certificate](Images/certificate-in-keychain.png?raw=true "Select Certificate")
 
-	_Save p12_
+	_Select Certificate_
 
 	>**Note**: This hands-on lab creates a QuickstartPusher.p12 file. Your file name and location might be different.
 
@@ -647,7 +668,7 @@ Make a note of the file name and location of the exported certificate.
 
 ### Task 7 - Testing push Notifications in Your App###
 
-1.	Press the **Run** button to build the project and start the app in an iOS capable device, then click **OK** to accept push notifications.
+1.	Press the **Run** button to build the project and start the app in an iOS capable device, then click **OK** to accept push notifications.  Note that push notifications will not work in the simulator.
 
 	![Prompt to send push notification](Images/prompt-to-send-push-notification.png?raw=true "Prompt to send push notification")
 
@@ -685,7 +706,7 @@ To be able to authenticate users, you must register your iOS app at the Facebook
 
 1. Navigate to the [Facebook Developer Center](https://developers.facebook.com/) page, log on with your Facebook account if needed, and then follow the instructions to create your app.
 
-1. For the **Site URL**, enter the URL of your Mobile Service. This can be found on the **Dashboard** tab in the portal under **Mobile Service URL** on the right side.
+1. Select **Website with Facebook Login** and for the **Site URL**, enter the URL of your Mobile Service. This can be found on the **Dashboard** tab in the portal under **Mobile Service URL** on the right side.
 
 1. Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/), click **Mobile Services**, and then click your Mobile Service.
 
@@ -765,3 +786,79 @@ Next, you will update the app to authenticate users before requesting resources 
 1. Log on with Facebook (or your chosen identity provider) and accept Facebook to use your public profile. When you are successfully logged-in, the app should run without errors, and you should be able to query Mobile Services and make updates to data.
 
 
+---
+<a name="Exercise5"></a>
+## Exercise 5: Restricting user data ##
+
+In this exercise you will see how to associate data with the user that saved it.  You will then restrict data that a user can access to only data they have saved.
+
+### Task 1 - Saving your User ID with each Todo item ###
+
+Since we just set up authentication in our application, we are now sending a user object with each request to our Mobile Service.  We can use this to tie data that we're saving to the user.
+
+1. Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/), click **Mobile Services**, and then click your Mobile Service.
+
+	![Mobile Service](./Images/mobile-service.png?raw=true "Mobile Service")
+
+	_Mobile Services_
+	
+1.	Click the **Data** tab, then click the **TodoItem** table.
+
+1	Click **Script**, then select the **Insert** operation.
+
+	![Insert operation in script tab](Images/insert-operation-in-script-tab.png?raw=true "Insert operation in script tab")
+
+	_Insert operation in script tab_
+	
+1.	Replace the existing script with the following function, and then click **Save**.
+
+	````objective-c
+	function insert(item, user, request) {
+		 item.userId = user.userId;
+		 request.execute();
+		 // Set timeout to delay the notification, to provide time for the 
+		 // app to be closed on the device to demonstrate toast notifications
+		 setTimeout(function() {
+			  push.apns.send(item.deviceToken, {
+					alert: "Toast: " + item.text,
+					payload: {
+						 inAppMessage: "Hey, a new item arrived: '" + item.text + "'"
+					}
+			  });
+		 }, 2500);
+	}
+	````
+
+	This alters the previously used insert script to dynamically add the user's userId property to the todo item before it is inserted.
+	
+1.	Return to your application and add a new todo item.
+
+1.	Return to the portal and click the **Browse** tab to return to your table's data.  A new **userId** column has been added.
+
+	![User ID added](Images/user-id-added.png?raw=true "User ID added")
+	
+	_User ID added_
+	
+### Task 2 - Retrieving data by User ID ###
+
+Now that we're saving the User ID for each item created, we need to restrict the data accessed by the client to each user.
+
+1.	Return to the portal and click the **Script** tab.  Use the **OPERATION** drop down to select **Read**.
+
+	[Read Script](Images/read-script.png?raw=true "Read Script")
+	
+	_Read Script_
+	
+1.	Replace the existing script with the following function, and then click **Save**.
+
+	````objective-c
+	function read(query, user, request) {
+		query.where({ userId : user.userId });
+    		request.execute();
+
+	}
+	````
+	
+1.	Return to your application and pull to refresh.
+
+You'll now only see the data for the user you last used to create a todo item.
