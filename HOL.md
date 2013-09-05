@@ -51,7 +51,8 @@ This hands-on lab includes the following exercises:
 1. [Validating Data Using Server Scripts](#Exercise2)
 1. [Getting Started with Push Notifications](#Exercise3)
 1. [Getting Started with Auth](#Exercise4)
-1. [Getting started with Notification Hubs](#Exercise5)
+1. [Restricting user data](#Exercise5)
+1. [Getting started with Notification Hubs](#Exercise6)
 
 Estimated time to complete this lab: **90 minutes**.
 
@@ -785,3 +786,79 @@ Next, you will update the app to authenticate users before requesting resources 
 1. Log on with Facebook (or your chosen identity provider) and accept Facebook to use your public profile. When you are successfully logged-in, the app should run without errors, and you should be able to query Mobile Services and make updates to data.
 
 
+---
+<a name="Exercise5"></a>
+## Exercise 5: Restricting user data ##
+
+In this exercise you will see how to associate data with the user that saved it.  You will then restrict data that a user can access to only data they have saved.
+
+### Task 1 - Saving your User ID with each Todo item ###
+
+Since we just set up authentication in our application, we are now sending a user object with each request to our Mobile Service.  We can use this to tie data that we're saving to the user.
+
+1. Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/), click **Mobile Services**, and then click your Mobile Service.
+
+	![Mobile Service](./Images/mobile-service.png?raw=true "Mobile Service")
+
+	_Mobile Services_
+	
+1.	Click the **Data** tab, then click the **TodoItem** table.
+
+1	Click **Script**, then select the **Insert** operation.
+
+	![Insert operation in script tab](Images/insert-operation-in-script-tab.png?raw=true "Insert operation in script tab")
+
+	_Insert operation in script tab_
+	
+1.	Replace the existing script with the following function, and then click **Save**.
+
+	````objective-c
+	function insert(item, user, request) {
+		 item.userId = user.userId;
+		 request.execute();
+		 // Set timeout to delay the notification, to provide time for the 
+		 // app to be closed on the device to demonstrate toast notifications
+		 setTimeout(function() {
+			  push.apns.send(item.deviceToken, {
+					alert: "Toast: " + item.text,
+					payload: {
+						 inAppMessage: "Hey, a new item arrived: '" + item.text + "'"
+					}
+			  });
+		 }, 2500);
+	}
+	````
+
+	This alters the previously used insert script to dynamically add the user's userId property to the todo item before it is inserted.
+	
+1.	Return to your application and add a new todo item.
+
+1.	Return to the portal and click the **Browse** tab to return to your table's data.  A new **userId** column has been added.
+
+	![User ID added](Images/user-id-added.png?raw=true "User ID added")
+	
+	_User ID added_
+	
+### Task 2 - Retrieving data by User ID ###
+
+Now that we're saving the User ID for each item created, we need to restrict the data accessed by the client to each user.
+
+1.	Return to the portal and click the **Script** tab.  Use the **OPERATION** drop down to select **Read**.
+
+	[Read Script](Images/read-script.png?raw=true "Read Script")
+	
+	_Read Script_
+	
+1.	Replace the existing script with the following function, and then click **Save**.
+
+	````objective-c
+	function read(query, user, request) {
+		query.where({ userId : user.userId });
+    		request.execute();
+
+	}
+	````
+	
+1.	Return to your application and pull to refresh.
+
+You'll now only see the data for the user you last used to create a todo item.
