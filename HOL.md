@@ -949,9 +949,54 @@ In this exercise we'll take a look at another method of delivering push notifica
 	}
 	````
 
+### Task 3 - Send a notification from your Notification Hub ###
+
+1. Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/), click **Mobile Services**, and then click your Mobile Service.
+
+	![Mobile Service](./Images/mobile-service.png?raw=true "Mobile Service")
+
+	_Mobile Services_
+
+1.	Select the **Scheduler** tab on top.
+
+	![Scheduler](/Images/scheduler-tab.png?raw=true "Scheduler")
 	
+	_Scheduler_
+	
+1.	Click **Create a scheduled job**, insert a name, and select **On demand**.
+	
+	![New on demand job](/Images/new-scheduled-job.png?raw=true "New on demand job")
 
+	_New on demand job_
+	
+1.	When the job is created, click the job name, and then click the **Script** tab at the top.
 
+1.	Insert the following script for your function.
+
+	````objective-c
+	function PushToNotificationHub() {
+		var azure = require('azure');
+		var notificationHubService = azure.createNotificationHubService('<notification hub name>', '<connection string>');
+		notificationHubService.apns.send(
+    			null, 
+    			{
+    				"alert": "Hello from Mobile Services!"
+    			},
+    			function (error)
+    			{
+        			if (!error) {
+            				console.warn("Notification successful");
+        			}
+    			}
+		);
+	}
+	````
+
+	>**Note:** Replace **<connection string>** with the **DefaultFullSharedAccessSignature** you created earlier.  Replace **<notification hub name>** with the name of your hub.
+	
+1.	Ensure your app is running on your device.
+
+1.	Click **Run Once** at the bottom of the portal and you should receive a push notification.
 
 	
 
