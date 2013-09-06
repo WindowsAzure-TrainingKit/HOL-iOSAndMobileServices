@@ -886,5 +886,72 @@ In this exercise we'll take a look at another method of delivering push notifica
 	
 	_Naming the Notification Hub_
 	
-1.	
+1.	After your Notification Hub is created, click the name of your Notification Hub.
+
+	![Select Notification Hub](/Images/select-notification-hub.png?raw=true "Select Notification Hub")
+	
+	_Select Notification Hub_
+	
+1.	Click the **Configure** tab at the top and then click **Upload** in the **apple notification settings**.  Click **Browse for file** and select the same **.p12** file you used earlier.  Enter the password (if you entered one) and choose between **Production** and **Sandbox**.  
+
+	![Configure Notification hub](/Images/notification-hub-configure-ios.png?raw=true "Configure Notification Hub")
+	
+	_Configure Notification Hub_
+	
+	>**Note:** For Notification Hubs, **Sandbox** refers to **Development**.  Also the environments are switched from how Mobile Services was.  Make sure you choose the correct environment.
+	
+1.	After saving your configuration changes, click the **Dashboard** tab in the top left.  Click the **Connection Information** button at the bottom.
+
+1.	In the **Access connection information** screen, make a note of the **DefaultListenSharedAccessSignature** and **DefaultFullSharedAccessSignature** connection strings.
+
+	![Notification Hub Connection Strings](/Images/notification-hub-connection-strings.png?raw=true "Notification Hub Connection Strings")
+	
+	_Notification Hub Connection Strings_
+
+
+### Task 2 - Connect your App to the Notification Hub ###
+
+1.	Download the [Azure SDK for iOS](http://go.microsoft.com/fwlink/?linkid=266533&clcid=0x409).
+
+1.	Extract the downloaded archive and copy the **WindowsAzureMessaging.framework** folder into your **Frameworks** folder in Xcode.  When prompted, choose to **Copy items into destination group's folder**.
+
+1.	Open your QSAppDelegate.h file and add the following import directive:
+
+	````objective-c
+	#import <WindowsAzureMessaging/WindowsAzureMessaging.h>
+	````
+
+1.	Replace your **didRegisterForRemoteNotificationsWithDeviceToken** method with the following.
+
+	````objective-c
+	- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *) deviceToken {
+		SBNotificationHub* hub = [[SBNotificationHub alloc] initWithConnectionString:
+                              @"<connection string>" notificationHubPath:@"<notification hub name>"];
+
+		[hub registerNativeWithDeviceToken:deviceToken tags:nil completion:^(NSError* error) {
+    			if (error != nil) {
+        		NSLog(@"Error registering for notifications: %@", error);
+    		}
+		}];
+	}
+	````
+
+	>**Note:** Replace **<connection string>** with the **DefaultListenSharedAccessSignature** you created earlier.  Replace **<notification hub name>** with the name of your hub.
+	
+1.	Replace your **didReceiveRemoteNotification** method with the below.
+
+	````objective-c
+	- (void)application:(UIApplication *)application didReceiveRemoteNotification: (NSDictionary *)userInfo {
+    		NSLog(@"%@", userInfo);
+    		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:[[userInfo objectForKey:@"aps"] valueForKey:@"alert"] delegate:nil cancelButtonTitle:
+                          @"OK" otherButtonTitles:nil, nil];
+    		[alert show];
+	}
+	````
+
+	
+
+
+
+	
 
