@@ -862,3 +862,141 @@ Now that we're saving the User ID for each item created, we need to restrict the
 1.	Return to your application and pull to refresh.
 
 You'll now only see the data for the user you last used to create a todo item.
+
+
+---
+<a name="Exercise6"></a>
+## Exercise 6: Getting started with Notification Hubs ##
+
+In this exercise we'll take a look at another method of delivering push notifications: Notification Hubs.  Notification Hubs provide an auto-managed device management system and enable you to broadcast push notifications to millions of devices with a single line of code.  Advanced features of Notification Hubs (not covered in this exercise) include tag-based registrations and deliveries as well as using templates to handle formatting your push notifications differently for different platforms.  We'll be reusing our existing Mobile Service for part of this exerciese.
+
+### Task 1 - Creating your Notification Hub ###
+
+1.	Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/).
+
+1.	Select **NEW** from the bottom left and then click **APP SERVICES**, **SERVICE BUS**, **NOTIFICATION HUB**, and **QUICK CREATE**.
+
+	![New Notification Hub](/Images/notification-hub-create-from-portal.png?raw=true "New Notification Hub")
+
+	_New Notification Hub_
+	
+1.	Type a name for your Notification Hub, select your desired region, and then click **Create a New Notification Hub**.
+
+	![Naming the Notification Hub](/Images/name-notification-hub.png?raw=true "Naming the Notification Hub")
+	
+	_Naming the Notification Hub_
+	
+1.	After your Notification Hub is created, click the name of your Notification Hub.
+
+	![Select Notification Hub](/Images/select-notification-hub.png?raw=true "Select Notification Hub")
+	
+	_Select Notification Hub_
+	
+1.	Click the **Configure** tab at the top and then click **Upload** in the **apple notification settings**.  Click **Browse for file** and select the same **.p12** file you used earlier.  Enter the password (if you entered one) and choose between **Production** and **Sandbox**.  
+
+	![Configure Notification hub](/Images/notification-hub-configure-ios.png?raw=true "Configure Notification Hub")
+	
+	_Configure Notification Hub_
+	
+	>**Note:** For Notification Hubs, **Sandbox** refers to **Development**.  Also the environments are switched from how Mobile Services was.  Make sure you choose the correct environment.
+	
+1.	After saving your configuration changes, click the **Dashboard** tab in the top left.  Click the **Connection Information** button at the bottom.
+
+1.	In the **Access connection information** screen, make a note of the **DefaultListenSharedAccessSignature** and **DefaultFullSharedAccessSignature** connection strings.
+
+	![Notification Hub Connection Strings](/Images/notification-hub-connection-strings.png?raw=true "Notification Hub Connection Strings")
+	
+	_Notification Hub Connection Strings_
+
+
+### Task 2 - Connect your App to the Notification Hub ###
+
+1.	Download the [Azure SDK for iOS](http://go.microsoft.com/fwlink/?linkid=266533&clcid=0x409).
+
+1.	Extract the downloaded archive and copy the **WindowsAzureMessaging.framework** folder into your **Frameworks** folder in Xcode.  When prompted, choose to **Copy items into destination group's folder**.
+
+1.	Open your QSAppDelegate.h file and add the following import directive:
+
+	````objective-c
+	#import <WindowsAzureMessaging/WindowsAzureMessaging.h>
+	````
+
+1.	Replace your **didRegisterForRemoteNotificationsWithDeviceToken** method with the following.
+
+	````objective-c
+	- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *) deviceToken {
+		SBNotificationHub* hub = [[SBNotificationHub alloc] initWithConnectionString:
+                              @"<connection string>" notificationHubPath:@"<notification hub name>"];
+
+		[hub registerNativeWithDeviceToken:deviceToken tags:nil completion:^(NSError* error) {
+    			if (error != nil) {
+        		NSLog(@"Error registering for notifications: %@", error);
+    		}
+		}];
+	}
+	````
+
+	>**Note:** Replace **<connection string>** with the **DefaultListenSharedAccessSignature** you created earlier.  Replace **<notification hub name>** with the name of your hub.
+	
+1.	Replace your **didReceiveRemoteNotification** method with the below.
+
+	````objective-c
+	- (void)application:(UIApplication *)application didReceiveRemoteNotification: (NSDictionary *)userInfo {
+    		NSLog(@"%@", userInfo);
+    		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:[[userInfo objectForKey:@"aps"] valueForKey:@"alert"] delegate:nil cancelButtonTitle:
+                          @"OK" otherButtonTitles:nil, nil];
+    		[alert show];
+	}
+	````
+
+### Task 3 - Send a notification from your Notification Hub ###
+
+1. Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/), click **Mobile Services**, and then click your Mobile Service.
+
+	![Mobile Service](./Images/mobile-service.png?raw=true "Mobile Service")
+
+	_Mobile Services_
+
+1.	Select the **Scheduler** tab on top.
+
+	![Scheduler](/Images/scheduler-tab.png?raw=true "Scheduler")
+	
+	_Scheduler_
+	
+1.	Click **Create a scheduled job**, insert a name, and select **On demand**.
+	
+	![New on demand job](/Images/new-scheduled-job.png?raw=true "New on demand job")
+
+	_New on demand job_
+	
+1.	When the job is created, click the job name, and then click the **Script** tab at the top.
+
+1.	Insert the following script for your function.
+
+	````objective-c
+	function PushToNotificationHub() {
+		var azure = require('azure');
+		var notificationHubService = azure.createNotificationHubService('<notification hub name>', '<connection string>');
+		notificationHubService.apns.send(
+    			null, 
+    			{
+    				"alert": "Hello from Mobile Services!"
+    			},
+    			function (error)
+    			{
+        			if (!error) {
+            				console.warn("Notification successful");
+        			}
+    			}
+		);
+	}
+	````
+
+	>**Note:** Replace **<connection string>** with the **DefaultFullSharedAccessSignature** you created earlier.  Replace **<notification hub name>** with the name of your hub.
+	
+1.	Ensure your app is running on your device.
+
+1.	Click **Run Once** at the bottom of the portal and you should receive a push notification.
+
+	
+
