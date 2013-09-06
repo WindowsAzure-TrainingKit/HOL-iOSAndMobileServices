@@ -862,3 +862,29 @@ Now that we're saving the User ID for each item created, we need to restrict the
 1.	Return to your application and pull to refresh.
 
 You'll now only see the data for the user you last used to create a todo item.
+
+
+---
+<a name="Exercise6"></a>
+## Exercise 6: Getting started with Notification Hubs ##
+
+In this exercise we'll take a look at another method of delivering push notifications: Notification Hubs.  Notification Hubs provide an auto-managed device management system and enable you to broadcast push notifications to millions of devices with a single line of code.  Advanced features of Notification Hubs (not covered in this exercise) include tag-based registrations and deliveries as well as using templates to handle formatting your push notifications differently for different platforms.  We'll be reusing our existing Mobile Service for part of this exerciese.
+
+### Task 1 - Creating your Notification Hub ###
+
+1.	Log on to the [Windows Azure Management Portal](https://manage.windowsazure.com/).
+
+1.	Select **NEW** from the bottom left and then click **APP SERVICES**, **SERVICE BUS**, **NOTIFICATION HUB**, and **QUICK CREATE**.
+
+	![New Notification Hub](/Images/notification-hub-create-from-portal.png?raw=true "New Notification Hub")
+
+	_New Notification Hub_
+	
+1.	Type a name for your Notification Hub, select your desired region, and then click **Create a New Notification Hub**.
+
+	![Naming the Notification Hub](/Images/name-notification-hub.png?raw=true "Naming the Notification Hub")
+	
+	_Naming the Notification Hub_
+	
+1.	
+
